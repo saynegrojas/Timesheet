@@ -12,6 +12,8 @@ namespace Timesheet.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.Design;
+
 
     public partial class User
     {
@@ -27,6 +29,7 @@ namespace Timesheet.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [Required(ErrorMessage = "Invalid Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public string Phone { get; set; }
         public string JobDescription { get; set; }
