@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Timesheet.Models.Job_Role>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JobDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.JobTitle }) |
+            @Html.ActionLink("Details", "Details", new { id=item.JobTitle }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.JobTitle })
+        </td>
+    </tr>
+}
+
+</table>

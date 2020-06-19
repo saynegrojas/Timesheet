@@ -1,0 +1,34 @@
+﻿@model Timesheet.Models.HourCode
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HourCode</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CodeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodeValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodeValue)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CodeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
