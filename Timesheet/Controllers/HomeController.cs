@@ -26,5 +26,11 @@ namespace Timesheet.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Login()
+        {
+            return View();
+        }
     }
 }
