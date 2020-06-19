@@ -11,7 +11,8 @@ namespace Timesheet.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,9 +21,12 @@ namespace Timesheet.Models
             this.Schedules = new HashSet<Schedule>();
         }
     
+        [Required(ErrorMessage = "Invalid Password")]
+        [DataType(DataType.Password)]
         public string UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        [Required(ErrorMessage = "Invalid Email")]
         public string Email { get; set; }
         public string Phone { get; set; }
         public string JobDescription { get; set; }
