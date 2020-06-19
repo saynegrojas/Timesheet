@@ -6,23 +6,23 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="text-right">
+    @Html.ActionLink("Add User", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayName("Name")
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Phone)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Job_Role.JobDescription)
         </th>
@@ -30,25 +30,25 @@
     </tr>
 
 @foreach (var item in Model) {
+    var concat = item.FirstName + " " + item.LastName;
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.ActionLink(concat, "Details", new { id = item.UserID }) 
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Phone)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Job_Role.JobDescription)
         </td>
-        <td>
+        <td align="right">
             @Html.ActionLink("Edit", "Edit", new { id=item.UserID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.UserID })
         </td>
     </tr>
