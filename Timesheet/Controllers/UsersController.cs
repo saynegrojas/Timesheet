@@ -50,7 +50,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription")] User user)
+        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription")] User user)
+        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -133,31 +133,31 @@ namespace Timesheet.Controllers
 
         //Login 
         //[ValidateAntiForgeryToken]
-        public ActionResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Login(User user)
-        {
-            if (ModelState.IsValid)
-            {
-               if(user.Email == user.Email && user.UserID == user.UserID)
-                {
-                    FormsAuthentication.SetAuthCookie(user.Email, false);
-                    return RedirectToAction("Index", "Users");
-                } else if (user.Email != user.Email)
-                {
-                    ModelState.AddModelError("", "Invalid Email");
-                } else if(user.UserID != user.UserID)
-                {
-                    ModelState.AddModelError("", "Invalid Password");
-                } else
-                {
-                    ModelState.AddModelError("", "Invalid Email & Password");
-                }
-            }
-            return View();
-        }
+        //public ActionResult Login()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public ActionResult Login(User user)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //       if(user.Email == user.Email && user.UserID == user.UserID)
+        //        {
+        //            FormsAuthentication.SetAuthCookie(user.Email, false);
+        //            return RedirectToAction("Index", "Users");
+        //        } else if (user.Email != user.Email)
+        //        {
+        //            ModelState.AddModelError("", "Invalid Email");
+        //        } else if(user.UserID != user.UserID)
+        //        {
+        //            ModelState.AddModelError("", "Invalid Password");
+        //        } else
+        //        {
+        //            ModelState.AddModelError("", "Invalid Email & Password");
+        //        }
+        //    }
+        //    return View();
+        //}
     }
 }

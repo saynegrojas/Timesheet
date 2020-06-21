@@ -1,0 +1,126 @@
+﻿@model Timesheet.Models.User
+@{
+    ViewBag.Title = "Login";
+
+}
+<!doctype html>
+
+<html>
+<head>
+    <meta name="viewport" content="width-device-width" />
+    <title>Login</title>
+    <style>
+        #login-div {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            border: 1px solid #0094ff;
+            padding: 0;
+            transform: translate(-50%, -50%);
+        }
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    @*<div class="login">
+
+            @using (Html.BeginForm(FormMethod.Post))
+            {
+                <div>
+                    @Html.EditorFor(model => model.Email, new
+                {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control input-sm",
+                       @style = "margin: 0px auto; width: 600px; height: 40px;",
+                            placeholder = @Html.DisplayNameFor(m => m.Email)
+                   }
+                })
+                </div>
+                <div class="text-center" style="color: red; margin: 0px auto; padding-right: 200px;">
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+                <br />
+                <div style="color: red;">
+                    @Html.EditorFor(model => model.Password, new
+                {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control input-sm",
+                       @style = "margin: 0px auto; width: 600px; height: 40px;",
+                            placeholder = @Html.DisplayNameFor(model => model.Password)
+                   }
+                })
+                </div>
+                <div class="text-center" style="color: red; margin: 0px auto; padding-right: 170px;">
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="col-sm-offset-5 col-md-12">
+                        <input type="submit" value="Login" class="btn btn-primary" />
+                        <input type="submit" value="Cancel" class="btn btn-primary" />
+                    </div>
+                </div>
+            }
+        </div>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+    <div class="container">
+        <div id="login-div">
+            @using (Html.BeginForm(FormMethod.Post))
+            {
+                <table>
+                    <tr>
+                        <td></td>
+                        <td style="text-decoration: none"> Login </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.Email)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.Email)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ValidationMessageFor(model => model.Email)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.Password)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.Password)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ValidationMessageFor(model => model.Password)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @*<label class="field-validation-error">
+                                @Html.DisplayFor(model => model.LoginErrorMessage)
+                            </label>*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="Login" class="btn btn-primary" />
+                            <input type="reset" value="Cancel" class="btn btn-primary" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

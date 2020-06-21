@@ -23,6 +23,15 @@ textarea {
     max-width: 280px;
 }
 
-.field-validation-valid {
+.field-validation-error {
     color: red;
+}
+
+#login-div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 1px solid #0094ff;
+    padding: 0;
+    /*transform: translate(50%, 50%);*/
 }
