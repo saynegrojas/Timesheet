@@ -2,6 +2,10 @@
 
 @{
     ViewBag.Title = "Delete";
+    if (Session["Email"] == null)
+    {
+        Response.Redirect("~/Home/Login");
+    }
 }
 
 <h2>Delete</h2>

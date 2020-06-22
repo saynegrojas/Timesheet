@@ -22,6 +22,22 @@ namespace Timesheet.Controllers
             var users = db.Users.Include(u => u.Job_Role);
             return View(users.ToList());
         }
+        //[HttpPost]
+        //public ActionResult Index(User user)
+        //{
+        //    using (TimesheetEntities db = new TimesheetEntities());
+        //    var userDetail = db.Users.Where(x => x.FirstName == user.FirstName).FirstOrDefault();
+
+        //    if (userDetail == null)
+        //    {
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        user.DisplayName = user.FirstName;
+        //        return View("Index", user);
+        //    }
+        //}
 
         // GET: Users/Details/5
         public ActionResult Details(string id)
@@ -54,6 +70,8 @@ namespace Timesheet.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Hashing password 
+                user.Password = Crypto.Hash(user.Password);
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");

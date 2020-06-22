@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TimesheetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TimesheetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Doctor">
           <Key>
             <PropertyRef Name="FileNumber" />
@@ -78,6 +78,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="45" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" />
           <Property Name="JobDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_ScheduleFileNo">
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
@@ -185,8 +186,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TimesheetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -275,6 +275,7 @@
           <Property Name="JobDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Job_Role" Relationship="Self.FK_UserJobrole" FromRole="User" ToRole="Job_Role" />
           <NavigationProperty Name="Schedules" Relationship="Self.FK_ScheduleUser" FromRole="User" ToRole="Schedule" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ScheduleFileNo">
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
@@ -461,6 +462,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TimesheetModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />

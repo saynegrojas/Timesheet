@@ -11,9 +11,9 @@ namespace Timesheet.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.Design;
-
+    using System.Web.Mvc;
 
     public partial class User
     {
@@ -26,15 +26,17 @@ namespace Timesheet.Models
         public string UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [Required(ErrorMessage = "Invalid Email")]
+        [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public string Phone { get; set; }
         public string JobDescription { get; set; }
-        [Required(ErrorMessage = "Invalid Password")]
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-    
+        public string LoginErrorMessage { get; set; }
+        //public string DisplayName { get; set; }
+
         public virtual Job_Role Job_Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedules { get; set; }

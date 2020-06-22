@@ -2,20 +2,23 @@
 
 @{
     ViewBag.Title = "Index";
-    //if (Session["Email"] == null)
-    //{
-    //    Response.Redirect("~/Home/Login");
-    //}
+    if (Session["Email"] == null)
+    {
+        Response.Redirect("~/Home/Login");
+    }
 }
 
 <h2>User</h2>
 <p class="text-right">
     <a href="@Url.Action("Logout", "Home")">Logout</a>
 </p>
+<div>
+    <h3>Welcome <h3 />
+        @*Dynamically insert current user name  *@
+</div>
 <p class="text-right">
     @Html.ActionLink("Add User", "Create")
 </p>
-
 <table class="table">
     <tr>
         <th>
