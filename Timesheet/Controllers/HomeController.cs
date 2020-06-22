@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Timesheet.Models;
 
-
 namespace Timesheet.Controllers
 {
     public class HomeController : Controller
