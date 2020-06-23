@@ -6,7 +6,6 @@
 
 <h2>Create</h2>
 
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -16,33 +15,35 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.FileNumber, "FileNumber", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ScheduleID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FileNumber", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.FileNumber, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ScheduleID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ScheduleID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LocationID, "LocationID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @*change label*@
+            @Html.LabelFor(model => model.DoctorID, "DoctorID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("LocationID", null, htmlAttributes: new { @class = "form-control" })
+                
+                @Html.DropDownList("DoctorID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DoctorID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LocationID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LocationID, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.LocationID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserID, "UserID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Time_In, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Time_In, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Time_In, new { htmlAttributes = new { @class = "form-control", @type = "time" } })
                 @Html.ValidationMessageFor(model => model.Time_In, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,7 +51,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Time_Out, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Time_Out, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Time_Out, new { htmlAttributes = new { @class = "form-control", @type = "time" } })
                 @Html.ValidationMessageFor(model => model.Time_Out, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -82,7 +83,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

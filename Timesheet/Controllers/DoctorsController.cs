@@ -21,7 +21,7 @@ namespace Timesheet.Controllers
         }
 
         // GET: Doctors/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -46,7 +46,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FileNumber,FirstName,LastName,Sex,Phone,Email")] Doctor doctor)
+        public ActionResult Create([Bind(Include = "FileNumber,FirstName,LastName,Sex,Phone,Email,DoctorId")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace Timesheet.Controllers
         }
 
         // GET: Doctors/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -78,7 +78,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FileNumber,FirstName,LastName,Sex,Phone,Email")] Doctor doctor)
+        public ActionResult Edit([Bind(Include = "FileNumber,FirstName,LastName,Sex,Phone,Email,DoctorId")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Timesheet.Controllers
         }
 
         // GET: Doctors/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -107,7 +107,7 @@ namespace Timesheet.Controllers
         // POST: Doctors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Doctor doctor = db.Doctors.Find(id);
             db.Doctors.Remove(doctor);

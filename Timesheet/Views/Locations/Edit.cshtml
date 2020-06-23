@@ -6,7 +6,6 @@
 
 <h2>Edit</h2>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -26,10 +25,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SectorName, "SectorName", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SectionID, "SectionID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("SectorName", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SectorName, "", new { @class = "text-danger" })
+                @Html.DropDownList("SectionID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SectionID, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -44,7 +43,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
