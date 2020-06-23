@@ -6,8 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using System.Web.UI.WebControls;
 using Timesheet.Models;
 
 namespace Timesheet.Controllers
@@ -22,25 +20,9 @@ namespace Timesheet.Controllers
             var users = db.Users.Include(u => u.Job_Role);
             return View(users.ToList());
         }
-        //[HttpPost]
-        //public ActionResult Index(User user)
-        //{
-        //    using (TimesheetEntities db = new TimesheetEntities());
-        //    var userDetail = db.Users.Where(x => x.FirstName == user.FirstName).FirstOrDefault();
-
-        //    if (userDetail == null)
-        //    {
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        user.DisplayName = user.FirstName;
-        //        return View("Index", user);
-        //    }
-        //}
 
         // GET: Users/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -57,7 +39,7 @@ namespace Timesheet.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobTitle", "JobDescription");
+            ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription");
             return View();
         }
 
@@ -66,7 +48,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password")] User user)
+        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password,JobRoleID")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -77,12 +59,12 @@ namespace Timesheet.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobTitle", "JobDescription", user.JobDescription);
+            ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription", user.JobRoleID);
             return View(user);
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -93,7 +75,7 @@ namespace Timesheet.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobTitle", "JobDescription", user.JobDescription);
+            ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription", user.JobRoleID);
             return View(user);
         }
 
@@ -102,7 +84,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password")] User user)
+        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password,JobRoleID")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -110,12 +92,12 @@ namespace Timesheet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobTitle", "JobDescription", user.JobDescription);
+            ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription", user.JobRoleID);
             return View(user);
         }
 
         // GET: Users/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -132,7 +114,7 @@ namespace Timesheet.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);
             db.Users.Remove(user);
@@ -148,34 +130,5 @@ namespace Timesheet.Controllers
             }
             base.Dispose(disposing);
         }
-
-        //Login 
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Login()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult Login(User user)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //       if(user.Email == user.Email && user.UserID == user.UserID)
-        //        {
-        //            FormsAuthentication.SetAuthCookie(user.Email, false);
-        //            return RedirectToAction("Index", "Users");
-        //        } else if (user.Email != user.Email)
-        //        {
-        //            ModelState.AddModelError("", "Invalid Email");
-        //        } else if(user.UserID != user.UserID)
-        //        {
-        //            ModelState.AddModelError("", "Invalid Password");
-        //        } else
-        //        {
-        //            ModelState.AddModelError("", "Invalid Email & Password");
-        //        }
-        //    }
-        //    return View();
-        //}
     }
 }

@@ -2,17 +2,19 @@
 
 @{
     ViewBag.Title = "Delete";
-    if (Session["Email"] == null)
+    if (Session["email"] == null)
     {
-        Response.Redirect("~/Home/Login");
+        Response.Redirect("~/Home/login");
     }
 }
 
-<h2>Delete</h2>
 
+<p class="text-right logout">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
+<h2>Delete</h2>
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>User</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -57,12 +59,16 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-default" />
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
         </div>
     }
 </div>
+

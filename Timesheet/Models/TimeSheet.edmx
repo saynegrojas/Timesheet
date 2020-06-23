@@ -4,59 +4,61 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TimesheetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TimesheetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Doctor">
           <Key>
-            <PropertyRef Name="FileNumber" />
+            <PropertyRef Name="DoctorId" />
           </Key>
-          <Property Name="FileNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileNumber" Type="int" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="Sex" Type="nvarchar" MaxLength="6" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" />
           <Property Name="Email" Type="nvarchar" MaxLength="45" />
+          <Property Name="DoctorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="HourCode">
           <Key>
             <PropertyRef Name="CodeID" />
           </Key>
-          <Property Name="CodeID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="CodeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CodeDescription" Type="nvarchar" MaxLength="200" />
           <Property Name="CodeValue" Type="decimal" Precision="5" Scale="2" />
         </EntityType>
         <EntityType Name="Job_Role">
           <Key>
-            <PropertyRef Name="JobTitle" />
+            <PropertyRef Name="JobRoleID" />
           </Key>
-          <Property Name="JobTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="JobRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="JobDescription" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
             <PropertyRef Name="LocationID" />
           </Key>
-          <Property Name="LocationID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="LocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationName" Type="nvarchar" MaxLength="50" />
-          <Property Name="SectorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SectionID" Type="int" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
             <PropertyRef Name="ScheduleID" />
           </Key>
-          <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="LocationID" Type="nvarchar" MaxLength="5" />
-          <Property Name="UserID" Type="nvarchar" MaxLength="10" />
+          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="DoctorID" Type="int" />
+          <Property Name="LocationID" Type="int" />
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Time_In" Type="datetime" />
           <Property Name="Time_Out" Type="datetime" />
-          <Property Name="HourCodeId" Type="nvarchar" MaxLength="5" />
+          <Property Name="HourCodeId" Type="int" />
           <Property Name="Amount" Type="decimal" Precision="5" Scale="2" />
         </EntityType>
         <EntityType Name="Sector">
           <Key>
-            <PropertyRef Name="SectorName" />
+            <PropertyRef Name="SectionID" />
           </Key>
           <Property Name="SectorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -72,39 +74,40 @@
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="45" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" />
           <Property Name="JobDescription" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobRoleID" Type="int" />
         </EntityType>
-        <Association Name="FK_ScheduleFileNo">
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Doctor">
-              <PropertyRef Name="FileNumber" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="FileNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ScheduleHourCode">
+        <Association Name="FK_Location_Sector">
           <End Role="Sector" Type="Self.Sector" Multiplicity="0..1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sector">
-              <PropertyRef Name="SectorName" />
+              <PropertyRef Name="SectionID" />
             </Principal>
             <Dependent Role="Location">
-              <PropertyRef Name="SectorName" />
+              <PropertyRef Name="SectionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ScheduleHourCode2">
+        <Association Name="FK_Schedule_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_HourCode">
           <End Role="HourCode" Type="Self.HourCode" Multiplicity="0..1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -116,39 +119,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ScheduleLocation">
-          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="LocationID" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="LocationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ScheduleUser">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserJobrole">
+        <Association Name="FK_User_Job_Role">
           <End Role="Job_Role" Type="Self.Job_Role" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Job_Role">
-              <PropertyRef Name="JobTitle" />
+              <PropertyRef Name="JobRoleID" />
             </Principal>
             <Dependent Role="User">
-              <PropertyRef Name="JobDescription" />
+              <PropertyRef Name="JobRoleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -161,97 +140,89 @@
           <EntitySet Name="Sector" EntityType="Self.Sector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_ScheduleFileNo" Association="Self.FK_ScheduleFileNo">
-            <End Role="Doctor" EntitySet="Doctor" />
-            <End Role="Schedule" EntitySet="Schedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ScheduleHourCode" Association="Self.FK_ScheduleHourCode">
+          <AssociationSet Name="FK_Location_Sector" Association="Self.FK_Location_Sector">
             <End Role="Sector" EntitySet="Sector" />
             <End Role="Location" EntitySet="Location" />
           </AssociationSet>
-          <AssociationSet Name="FK_ScheduleHourCode2" Association="Self.FK_ScheduleHourCode2">
+          <AssociationSet Name="FK_Schedule_Doctor" Association="Self.FK_Schedule_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_HourCode" Association="Self.FK_Schedule_HourCode">
             <End Role="HourCode" EntitySet="HourCode" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
-          <AssociationSet Name="FK_ScheduleLocation" Association="Self.FK_ScheduleLocation">
-            <End Role="Location" EntitySet="Location" />
-            <End Role="Schedule" EntitySet="Schedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ScheduleUser" Association="Self.FK_ScheduleUser">
-            <End Role="User" EntitySet="User" />
-            <End Role="Schedule" EntitySet="Schedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserJobrole" Association="Self.FK_UserJobrole">
+          <AssociationSet Name="FK_User_Job_Role" Association="Self.FK_User_Job_Role">
             <End Role="Job_Role" EntitySet="Job_Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TimesheetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Doctor">
           <Key>
-            <PropertyRef Name="FileNumber" />
+            <PropertyRef Name="DoctorId" />
           </Key>
-          <Property Name="FileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileNumber" Type="Int32" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sex" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_ScheduleFileNo" FromRole="Doctor" ToRole="Schedule" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_Doctor" FromRole="Doctor" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="HourCode">
           <Key>
             <PropertyRef Name="CodeID" />
           </Key>
-          <Property Name="CodeID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CodeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CodeDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CodeValue" Type="Decimal" Precision="5" Scale="2" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_ScheduleHourCode2" FromRole="HourCode" ToRole="Schedule" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_HourCode" FromRole="HourCode" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Job_Role">
           <Key>
-            <PropertyRef Name="JobTitle" />
+            <PropertyRef Name="JobRoleID" />
           </Key>
-          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JobRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="JobDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_UserJobrole" FromRole="Job_Role" ToRole="User" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Job_Role" FromRole="Job_Role" ToRole="User" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
             <PropertyRef Name="LocationID" />
           </Key>
-          <Property Name="LocationID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LocationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SectorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Sector" Relationship="Self.FK_ScheduleHourCode" FromRole="Location" ToRole="Sector" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_ScheduleLocation" FromRole="Location" ToRole="Schedule" />
+          <Property Name="SectionID" Type="Int32" />
+          <NavigationProperty Name="Sector" Relationship="Self.FK_Location_Sector" FromRole="Location" ToRole="Sector" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
             <PropertyRef Name="ScheduleID" />
           </Key>
-          <Property Name="ScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LocationID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="UserID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="DoctorID" Type="Int32" />
+          <Property Name="LocationID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Time_In" Type="DateTime" Precision="3" />
           <Property Name="Time_Out" Type="DateTime" Precision="3" />
-          <Property Name="HourCodeId" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="HourCodeId" Type="Int32" />
           <Property Name="Amount" Type="Decimal" Precision="5" Scale="2" />
-          <NavigationProperty Name="Doctor" Relationship="Self.FK_ScheduleFileNo" FromRole="Schedule" ToRole="Doctor" />
-          <NavigationProperty Name="HourCode" Relationship="Self.FK_ScheduleHourCode2" FromRole="Schedule" ToRole="HourCode" />
-          <NavigationProperty Name="Location" Relationship="Self.FK_ScheduleLocation" FromRole="Schedule" ToRole="Location" />
-          <NavigationProperty Name="User" Relationship="Self.FK_ScheduleUser" FromRole="Schedule" ToRole="User" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Schedule_Doctor" FromRole="Schedule" ToRole="Doctor" />
+          <NavigationProperty Name="HourCode" Relationship="Self.FK_Schedule_HourCode" FromRole="Schedule" ToRole="HourCode" />
         </EntityType>
         <EntityType Name="Sector">
           <Key>
-            <PropertyRef Name="SectorName" />
+            <PropertyRef Name="SectionID" />
           </Key>
           <Property Name="SectorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Locations" Relationship="Self.FK_ScheduleHourCode" FromRole="Sector" ToRole="Location" />
+          <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Locations" Relationship="Self.FK_Location_Sector" FromRole="Sector" ToRole="Location" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -267,29 +238,29 @@
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="JobDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Job_Role" Relationship="Self.FK_UserJobrole" FromRole="User" ToRole="Job_Role" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_ScheduleUser" FromRole="User" ToRole="Schedule" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobRoleID" Type="Int32" />
+          <NavigationProperty Name="Job_Role" Relationship="Self.FK_User_Job_Role" FromRole="User" ToRole="Job_Role" />
         </EntityType>
-        <Association Name="FK_ScheduleFileNo">
+        <Association Name="FK_Schedule_Doctor">
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
-              <PropertyRef Name="FileNumber" />
+              <PropertyRef Name="DoctorId" />
             </Principal>
             <Dependent Role="Schedule">
-              <PropertyRef Name="FileNumber" />
+              <PropertyRef Name="DoctorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ScheduleHourCode2">
+        <Association Name="FK_Schedule_HourCode">
           <End Role="HourCode" Type="Self.HourCode" Multiplicity="0..1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -301,51 +272,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserJobrole">
+        <Association Name="FK_User_Job_Role">
           <End Role="Job_Role" Type="Self.Job_Role" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Job_Role">
-              <PropertyRef Name="JobTitle" />
+              <PropertyRef Name="JobRoleID" />
             </Principal>
             <Dependent Role="User">
-              <PropertyRef Name="JobDescription" />
+              <PropertyRef Name="JobRoleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ScheduleHourCode">
+        <Association Name="FK_Location_Sector">
           <End Role="Sector" Type="Self.Sector" Multiplicity="0..1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sector">
-              <PropertyRef Name="SectorName" />
+              <PropertyRef Name="SectionID" />
             </Principal>
             <Dependent Role="Location">
-              <PropertyRef Name="SectorName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ScheduleLocation">
-          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="LocationID" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="LocationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ScheduleUser">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="UserID" />
+              <PropertyRef Name="SectionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -358,29 +305,21 @@
           <EntitySet Name="Sectors" EntityType="Self.Sector" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_ScheduleFileNo" Association="Self.FK_ScheduleFileNo">
+          <AssociationSet Name="FK_Schedule_Doctor" Association="Self.FK_Schedule_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
-          <AssociationSet Name="FK_ScheduleHourCode2" Association="Self.FK_ScheduleHourCode2">
+          <AssociationSet Name="FK_Schedule_HourCode" Association="Self.FK_Schedule_HourCode">
             <End Role="HourCode" EntitySet="HourCodes" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserJobrole" Association="Self.FK_UserJobrole">
+          <AssociationSet Name="FK_User_Job_Role" Association="Self.FK_User_Job_Role">
             <End Role="Job_Role" EntitySet="Job_Role" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_ScheduleHourCode" Association="Self.FK_ScheduleHourCode">
+          <AssociationSet Name="FK_Location_Sector" Association="Self.FK_Location_Sector">
             <End Role="Sector" EntitySet="Sectors" />
             <End Role="Location" EntitySet="Locations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ScheduleLocation" Association="Self.FK_ScheduleLocation">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ScheduleUser" Association="Self.FK_ScheduleUser">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -398,6 +337,7 @@
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -413,7 +353,7 @@
           <EntitySetMapping Name="Job_Role">
             <EntityTypeMapping TypeName="TimesheetModel.Job_Role">
               <MappingFragment StoreEntitySet="Job_Role">
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="JobRoleID" ColumnName="JobRoleID" />
                 <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -423,7 +363,7 @@
               <MappingFragment StoreEntitySet="Location">
                 <ScalarProperty Name="LocationID" ColumnName="LocationID" />
                 <ScalarProperty Name="LocationName" ColumnName="LocationName" />
-                <ScalarProperty Name="SectorName" ColumnName="SectorName" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -431,7 +371,7 @@
             <EntityTypeMapping TypeName="TimesheetModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
-                <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
                 <ScalarProperty Name="LocationID" ColumnName="LocationID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Time_In" ColumnName="Time_In" />
@@ -445,6 +385,7 @@
             <EntityTypeMapping TypeName="TimesheetModel.Sector">
               <MappingFragment StoreEntitySet="Sector">
                 <ScalarProperty Name="SectorName" ColumnName="SectorName" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -462,13 +403,14 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TimesheetModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="JobRoleID" ColumnName="JobRoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -2,67 +2,65 @@
 
 @{
     ViewBag.Title = "Index";
-    if (Session["Email"] == null)
+    if (Session["email"] == null)
     {
-        Response.Redirect("~/Home/Login");
+        Response.Redirect("~/Home/login");
     }
 }
 
-<h2>User</h2>
-<p class="text-right">
-    <a href="@Url.Action("Logout", "Home")">Logout</a>
-</p>
-<div>
-    <h3>Welcome <h3 />
-        @*Dynamically insert current user name  *@
-</div>
-<p class="text-right">
-    @Html.ActionLink("Add User", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Name")
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>*@
-        @*<th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Job_Role.JobDescription)
-        </th>
-        <th></th>
-    </tr>
+    <div class="d-flex" id="wrapper">
+        <div>
+            <p class="text-right logout">
+                <a href="@Url.Action("Logout", "Home")">Logout</a>
+            </p>
+            <h2 class="text-left welcome">
+                Welcome,
+                @Session["Name"]
+            </h2>
+        </div>
+        <p class="text-right">
+            @Html.ActionLink("Add User", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Name")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Job_Role.JobDescription)
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    var concat = item.FirstName + " " + item.LastName;
-    <tr>
-        <td>
-            @Html.ActionLink(concat, "Details", new { id = item.UserID }) 
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>*@
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Job_Role.JobDescription)
-        </td>
-        <td align="right">
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserID })
-            @*hello there *@
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                var concat = item.FirstName + " " + item.LastName;
+                <tr>
+                    <td>
+                        @Html.ActionLink(concat, "Details", new { id = item.UserID })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Job_Role.JobDescription)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |
+                        @*@Html.ActionLink("Details", "Details", new { id=item.UserID }) |*@
+                        @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
+    </div>

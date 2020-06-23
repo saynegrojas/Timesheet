@@ -21,6 +21,7 @@ namespace Timesheet.Models
         }
     
         public string SectorName { get; set; }
+        public int SectionID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Location> Locations { get; set; }

@@ -17,7 +17,7 @@ namespace Timesheet.Controllers
         // GET: Schedules
         public ActionResult Index()
         {
-            var schedules = db.Schedules.Include(s => s.Doctor).Include(s => s.HourCode).Include(s => s.Location).Include(s => s.User);
+            var schedules = db.Schedules.Include(s => s.Doctor).Include(s => s.HourCode);
             return View(schedules.ToList());
         }
 
@@ -39,10 +39,8 @@ namespace Timesheet.Controllers
         // GET: Schedules/Create
         public ActionResult Create()
         {
-            ViewBag.FileNumber = new SelectList(db.Doctors, "FileNumber", "FirstName");
+            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName");
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription");
-            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName");
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "FirstName");
             return View();
         }
 
@@ -51,7 +49,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ScheduleID,FileNumber,LocationID,UserID,Time_In,Time_Out,HourCodeId,Amount")] Schedule schedule)
+        public ActionResult Create([Bind(Include = "ScheduleID,DoctorID,LocationID,UserID,Time_In,Time_Out,HourCodeId,Amount")] Schedule schedule)
         {
             if (ModelState.IsValid)
             {
@@ -60,10 +58,8 @@ namespace Timesheet.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FileNumber = new SelectList(db.Doctors, "FileNumber", "FirstName", schedule.FileNumber);
+            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", schedule.DoctorID);
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription", schedule.HourCodeId);
-            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName", schedule.LocationID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "FirstName", schedule.UserID);
             return View(schedule);
         }
 
@@ -79,10 +75,8 @@ namespace Timesheet.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.FileNumber = new SelectList(db.Doctors, "FileNumber", "FirstName", schedule.FileNumber);
+            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", schedule.DoctorID);
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription", schedule.HourCodeId);
-            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName", schedule.LocationID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "FirstName", schedule.UserID);
             return View(schedule);
         }
 
@@ -91,7 +85,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ScheduleID,FileNumber,LocationID,UserID,Time_In,Time_Out,HourCodeId,Amount")] Schedule schedule)
+        public ActionResult Edit([Bind(Include = "ScheduleID,DoctorID,LocationID,UserID,Time_In,Time_Out,HourCodeId,Amount")] Schedule schedule)
         {
             if (ModelState.IsValid)
             {
@@ -99,10 +93,8 @@ namespace Timesheet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FileNumber = new SelectList(db.Doctors, "FileNumber", "FirstName", schedule.FileNumber);
+            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", schedule.DoctorID);
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription", schedule.HourCodeId);
-            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName", schedule.LocationID);
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "FirstName", schedule.UserID);
             return View(schedule);
         }
 

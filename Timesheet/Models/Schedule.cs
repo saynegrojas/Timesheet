@@ -15,17 +15,15 @@ namespace Timesheet.Models
     public partial class Schedule
     {
         public int ScheduleID { get; set; }
-        public string FileNumber { get; set; }
-        public string LocationID { get; set; }
-        public string UserID { get; set; }
+        public Nullable<int> DoctorID { get; set; }
+        public Nullable<int> LocationID { get; set; }
+        public int UserID { get; set; }
         public Nullable<System.DateTime> Time_In { get; set; }
         public Nullable<System.DateTime> Time_Out { get; set; }
-        public string HourCodeId { get; set; }
+        public Nullable<int> HourCodeId { get; set; }
         public Nullable<decimal> Amount { get; set; }
     
         public virtual Doctor Doctor { get; set; }
         public virtual HourCode HourCode { get; set; }
-        public virtual Location Location { get; set; }
-        public virtual User User { get; set; }
     }
 }

@@ -2,16 +2,19 @@
 
 @{
     ViewBag.Title = "Details";
-    if (Session["Email"] == null)
+    if (Session["email"] == null)
     {
-        Response.Redirect("~/Home/Login");
+        Response.Redirect("~/Home/login");
     }
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>User</h4>
+<div class="d-flex" id="wrapper">
+    <div>
+        <p class="text-right logout">
+            <a href="@Url.Action("Logout", "Home")">Log out</a>
+        </p>
+        <h2>Details</h2>
+    </div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -60,3 +63,4 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.UserID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+</div>

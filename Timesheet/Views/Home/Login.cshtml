@@ -3,44 +3,17 @@
     ViewBag.Title = "Login";
 
 }
-<!doctype html>
-
-<html>
 <head>
     <meta name="viewport" content="width-device-width" />
-    <title>Login</title>
-    <style>
- /*       .login {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            border: 1px solid #0094ff;
-            padding: 0;
-            transform: translate(-50%, -50%);
-        }*/
-        #login-div {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            border: 1px solid #0094ff;
-            padding: 0;
-            transform: translate(-50%, -50%);
-            border: 1px solid #000000;
-        }
-        .field-validation-error {
-            color: red;
-        }
-    </style>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 </head>
-<div class="jumbotron" style="background-color: transparent;"></div>
-    <div class="jumbotron">
-        <div class="login">
-
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+       
             @using (Html.BeginForm("Login", "Home", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-
-                <div>
+                <div class="email">
                     @Html.EditorFor(model => model.Email, new
                 {
                    htmlAttributes = new
@@ -51,7 +24,7 @@
                    }
                 })
                 </div>
-                <div class="text-center" style="color: red; margin: 0px auto; padding-right: 110px;">
+                <div class="text-center" style="color: red; margin: 0px auto;">
                     @Html.ValidationMessageFor(model => model.Email)
                 </div>
                 <br />
@@ -66,24 +39,22 @@
                    }
                 })
                 </div>
-                <div class="text-center" style="color: red; margin: 0px auto; padding-right: 90px;">
+                <div class="text-center" style="color: red; margin: 0px auto;">
                     @Html.ValidationMessageFor(model => model.Password)
                 </div>
-                <div class="text-center" style="color: red; margin: 0px auto; padding-right: 47px;">
+                <div class="text-center" style="color: red; margin: 0px auto;">
                     @Html.DisplayFor(model => model.LoginErrorMessage)
                 </div>
                 <br />
                 <div class="form-group">
-                    <div class="col-sm-offset-6 col-md-12">
-                        <input type="submit" value="Login" class="btn btn-primary" />
-                        <input type="submit" value="Cancel" class="btn btn-primary" />
+                    <div id="login">
+                        <input type="submit" value="Log in" class="btn btn-primary" />
+                        <input type="reset" value="Cancel" class="btn btn-primary" />
                     </div>
                 </div>
             }
-        </div>
-
     </div>
-</html>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</div>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

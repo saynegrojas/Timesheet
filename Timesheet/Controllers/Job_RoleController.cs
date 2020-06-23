@@ -21,7 +21,7 @@ namespace Timesheet.Controllers
         }
 
         // GET: Job_Role/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -46,7 +46,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "JobTitle,JobDescription")] Job_Role job_Role)
+        public ActionResult Create([Bind(Include = "JobRoleID,JobDescription")] Job_Role job_Role)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace Timesheet.Controllers
         }
 
         // GET: Job_Role/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -78,7 +78,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "JobTitle,JobDescription")] Job_Role job_Role)
+        public ActionResult Edit([Bind(Include = "JobRoleID,JobDescription")] Job_Role job_Role)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Timesheet.Controllers
         }
 
         // GET: Job_Role/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -107,7 +107,7 @@ namespace Timesheet.Controllers
         // POST: Job_Role/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Job_Role job_Role = db.Job_Role.Find(id);
             db.Job_Role.Remove(job_Role);
