@@ -7,10 +7,15 @@
         Response.Redirect("~/Home/login");
     }
 }
-
-    <div class="d-flex" id="wrapper">
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("User", "Index", "Users")</li>
+            <li>@Html.ActionLink("TimeCard", "Index", "Doctors")</li>
+            <li>@Html.ActionLink("Reports", "Index", "Schedules")</li>
+        </ul>
+    </div>
         <div>
-            <p class="text-right logout">
+            <p class="text-right">
                 <a href="@Url.Action("Logout", "Home")">Logout</a>
             </p>
             <h2 class="text-left welcome">
@@ -27,12 +32,6 @@
                     @Html.DisplayName("Name")
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Phone)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Job_Role.JobDescription)
                 </th>
                 <th></th>
@@ -46,21 +45,12 @@
                         @Html.ActionLink(concat, "Details", new { id = item.UserID })
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Phone)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.Job_Role.JobDescription)
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |
-                        @*@Html.ActionLink("Details", "Details", new { id=item.UserID }) |*@
                         @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
                     </td>
                 </tr>
             }
-
         </table>
-    </div>
