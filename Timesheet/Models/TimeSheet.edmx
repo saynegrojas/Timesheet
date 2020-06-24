@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TimesheetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TimeSheetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Doctor">
           <Key>
             <PropertyRef Name="DoctorId" />
@@ -59,16 +59,6 @@
           </Key>
           <Property Name="SectorName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -131,14 +121,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TimesheetModelStoreContainer">
+        <EntityContainer Name="TimeSheetModelStoreContainer">
           <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HourCode" EntityType="Self.HourCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Job_Role" EntityType="Self.Job_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sector" EntityType="Self.Sector" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Location_Sector" Association="Self.FK_Location_Sector">
             <End Role="Sector" EntitySet="Sector" />
@@ -161,7 +150,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="TimesheetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="TimeSheetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Doctor">
           <Key>
             <PropertyRef Name="DoctorId" />
@@ -223,16 +212,6 @@
           <Property Name="SectorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Locations" Relationship="Self.FK_Location_Sector" FromRole="Sector" ToRole="Location" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -296,14 +275,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TimesheetEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TimeSheetEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Doctors" EntityType="Self.Doctor" />
           <EntitySet Name="HourCodes" EntityType="Self.HourCode" />
           <EntitySet Name="Job_Role" EntityType="Self.Job_Role" />
           <EntitySet Name="Locations" EntityType="Self.Location" />
           <EntitySet Name="Schedules" EntityType="Self.Schedule" />
           <EntitySet Name="Sectors" EntityType="Self.Sector" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Schedule_Doctor" Association="Self.FK_Schedule_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
@@ -327,9 +305,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TimesheetModelStoreContainer" CdmEntityContainer="TimesheetEntities">
+        <EntityContainerMapping StorageEntityContainer="TimeSheetModelStoreContainer" CdmEntityContainer="TimeSheetEntities">
           <EntitySetMapping Name="Doctors">
-            <EntityTypeMapping TypeName="TimesheetModel.Doctor">
+            <EntityTypeMapping TypeName="TimeSheetModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
                 <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -342,7 +320,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HourCodes">
-            <EntityTypeMapping TypeName="TimesheetModel.HourCode">
+            <EntityTypeMapping TypeName="TimeSheetModel.HourCode">
               <MappingFragment StoreEntitySet="HourCode">
                 <ScalarProperty Name="CodeID" ColumnName="CodeID" />
                 <ScalarProperty Name="CodeDescription" ColumnName="CodeDescription" />
@@ -351,7 +329,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Job_Role">
-            <EntityTypeMapping TypeName="TimesheetModel.Job_Role">
+            <EntityTypeMapping TypeName="TimeSheetModel.Job_Role">
               <MappingFragment StoreEntitySet="Job_Role">
                 <ScalarProperty Name="JobRoleID" ColumnName="JobRoleID" />
                 <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
@@ -359,7 +337,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Locations">
-            <EntityTypeMapping TypeName="TimesheetModel.Location">
+            <EntityTypeMapping TypeName="TimeSheetModel.Location">
               <MappingFragment StoreEntitySet="Location">
                 <ScalarProperty Name="LocationID" ColumnName="LocationID" />
                 <ScalarProperty Name="LocationName" ColumnName="LocationName" />
@@ -368,7 +346,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Schedules">
-            <EntityTypeMapping TypeName="TimesheetModel.Schedule">
+            <EntityTypeMapping TypeName="TimeSheetModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
                 <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
@@ -382,26 +360,15 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sectors">
-            <EntityTypeMapping TypeName="TimesheetModel.Sector">
+            <EntityTypeMapping TypeName="TimeSheetModel.Sector">
               <MappingFragment StoreEntitySet="Sector">
                 <ScalarProperty Name="SectorName" ColumnName="SectorName" />
                 <ScalarProperty Name="SectionID" ColumnName="SectionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="TimesheetModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="TimesheetModel.User">
+            <EntityTypeMapping TypeName="TimeSheetModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

@@ -36,7 +36,7 @@
         var lastName = item.LastName + "";
 <tr>
     <td>
-        @Html.ActionLink(file, "Create", "Schedules", new { id = item.DoctorId }, null)
+        @Html.ActionLink(file, "Create", "Schedules", new { id = item.FileNumber }, null)
     </td>
     <td>
         @Html.ActionLink(item.FirstName, "Create", "Schedules", new { id = item.DoctorId }, null)

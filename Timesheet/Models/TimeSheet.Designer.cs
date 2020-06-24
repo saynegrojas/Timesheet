@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\xX_GREG0R-E_Xx\Desktop\Csharp\Projects\Timesheet\Timesheet\Models\TimeSheet.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Administrator\Desktop\Timesheet\Timesheet\Models\TimeSheet.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

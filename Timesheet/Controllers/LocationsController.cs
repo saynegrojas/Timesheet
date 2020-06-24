@@ -12,7 +12,7 @@ namespace Timesheet.Controllers
 {
     public class LocationsController : Controller
     {
-        private TimesheetEntities db = new TimesheetEntities();
+        private TimeSheetEntities db = new TimeSheetEntities();
 
         // GET: Locations
         public ActionResult Index()

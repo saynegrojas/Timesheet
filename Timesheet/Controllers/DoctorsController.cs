@@ -12,7 +12,7 @@ namespace Timesheet.Controllers
 {
     public class DoctorsController : Controller
     {
-        private TimesheetEntities db = new TimesheetEntities();
+        private TimeSheetEntities db = new TimeSheetEntities();
 
         // GET: Doctors
         public ActionResult Index()

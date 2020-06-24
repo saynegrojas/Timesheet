@@ -38,7 +38,7 @@ namespace Timesheet.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(User user)
         {
-            using (TimesheetEntities db = new TimesheetEntities())
+            using (TimeSheetEntities db = new TimeSheetEntities())
             {
                 //FOR TESTING: INPUT IN USER TABLE - email: user@user.com pw: user jobDes: IT
                 var userValues = db.Users.Where(x => x.Email == user.Email && x.Password == user.Password).FirstOrDefault();

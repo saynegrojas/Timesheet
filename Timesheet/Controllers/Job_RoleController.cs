@@ -12,7 +12,7 @@ namespace Timesheet.Controllers
 {
     public class Job_RoleController : Controller
     {
-        private TimesheetEntities db = new TimesheetEntities();
+        private TimeSheetEntities db = new TimeSheetEntities();
 
         // GET: Job_Role
         public ActionResult Index()

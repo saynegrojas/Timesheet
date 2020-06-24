@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
 using Timesheet.Models;
@@ -12,7 +13,7 @@ namespace Timesheet.Controllers
 {
     public class SchedulesController : Controller
     {
-        private TimesheetEntities db = new TimesheetEntities();
+        private TimeSheetEntities db = new TimeSheetEntities();
 
         // GET: Schedules
         public ActionResult Index()
@@ -37,9 +38,12 @@ namespace Timesheet.Controllers
         }
 
         // GET: Schedules/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName");
+            Doctor dr = db.Doctors.Single(emp => emp.FileNumber == id);
+            ViewBag.dr = dr;
+            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "DoctorId");
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationId", "LocationId");
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription");
             return View();
         }
@@ -59,6 +63,7 @@ namespace Timesheet.Controllers
             }
 
             ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", schedule.DoctorID);
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationId", "LocationName", schedule.LocationID);
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription", schedule.HourCodeId);
             return View(schedule);
         }

@@ -12,7 +12,7 @@ namespace Timesheet.Controllers
 {
     public class UsersController : Controller
     {
-        private TimesheetEntities db = new TimesheetEntities();
+        private TimeSheetEntities db = new TimeSheetEntities();
 
         // GET: Users
         public ActionResult Index()
@@ -53,7 +53,7 @@ namespace Timesheet.Controllers
             if (ModelState.IsValid)
             {
                 //Hashing password 
-                user.Password = Crypto.Hash(user.Password);
+                //user.Password = Crypto.Hash(user.Password);
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
