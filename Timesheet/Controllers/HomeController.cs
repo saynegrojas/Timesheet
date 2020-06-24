@@ -40,7 +40,6 @@ namespace Timesheet.Controllers
         {
             using (TimesheetEntities db = new TimesheetEntities())
             {
-                //FOR TESTING: INPUT IN USER TABLE - email: user@user.com pw: user jobDes: IT
                 var userValues = db.Users.Where(x => x.Email == user.Email && x.Password == user.Password).FirstOrDefault();
 
                 if (userValues == null)

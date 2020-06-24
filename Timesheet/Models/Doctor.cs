@@ -14,8 +14,10 @@ namespace Timesheet.Models
 
 using System;
     using System.Collections.Generic;
-    
-public partial class Doctor
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
+    public partial class Doctor
 {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,7 +28,6 @@ public partial class Doctor
 
     }
 
-
     public int FileNumber { get; set; }
 
     public string FirstName { get; set; }
@@ -36,14 +37,18 @@ public partial class Doctor
     public string Sex { get; set; }
 
     public string Phone { get; set; }
-
+    [Required]
+    [DataType(DataType.EmailAddress)]
+    [Remote("EmailExists", "Account", HttpMethod = "POST", ErrorMessage = "Email address already registered.")]
     public string Email { get; set; }
 
     public int DoctorId { get; set; }
+    
+    public int GenderID { get; set; }
+    public string GenderName { get; set; }
 
 
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<Schedule> Schedules { get; set; }
 

@@ -3,37 +3,56 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
-<p>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("User", "Index", "Users")</li>
+        <li>@Html.ActionLink("Locations", "Index", "Locations")</li>
+        <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
+    </ul>
+</div>
+<p class="text-right">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
+<h2>Select Location</h2>
+<p class="text-right">
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LocationName)
+            @Html.DisplayName("Location ID")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sector.SectorName)
+            @Html.DisplayName("Location")
+        </th>
+        <th>
+            @Html.DisplayName("Sector")
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sector.SectorName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.LocationID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.LocationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.LocationID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        var location = item.LocationID + "";
+<tr>
+    <td>
+        @Html.ActionLink(location, "Create", "Schedules", new { id = item.LocationID }, null)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LocationName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Sector.SectorName)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.LocationID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.LocationID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.LocationID })
+    </td>
+</tr>
+    }
 
 </table>
+@*<div>
+    @Html.ActionLink("Back to List", "Index", "Users", null) 
+</div>*@

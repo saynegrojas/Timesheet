@@ -15,6 +15,7 @@ namespace Timesheet.Models
 using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public partial class User
 {
@@ -26,7 +27,8 @@ using System;
     public string LastName { get; set; }
     [Required]
     [DataType(DataType.EmailAddress)]
-    public string Email { get; set; }
+    [Remote("EmailExists", "Account", HttpMethod = "POST", ErrorMessage = "Email address already exists.")]
+        public string Email { get; set; }
 
     public string Phone { get; set; }
 

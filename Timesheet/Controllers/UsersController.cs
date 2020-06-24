@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,9 +16,25 @@ namespace Timesheet.Controllers
     {
         private TimesheetEntities db = new TimesheetEntities();
 
-        // GET: Users
         public ActionResult Index()
         {
+            //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["TimesheetEntities"].ConnectionString);
+            //SqlDataReader reader = null;
+            //con.Open();
+            //if((con.State & System.Data.ConnectionState.Open) > 0)
+            //{
+
+      
+            //SqlCommand cmd = new SqlCommand("Menu", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+
+            //cmd.Parameters.Add(new SqlParameter("@FilterId", "MenuLocation"));
+            //cmd.Parameters.Add(new SqlParameter("@Location", "TopBar"));
+
+            //reader = cmd.ExecuteReader();
+            //ViewBag.result = reader.ToString() + "working";
+
+            //}
             var users = db.Users.Include(u => u.Job_Role);
             return View(users.ToList());
         }
@@ -130,5 +148,21 @@ namespace Timesheet.Controllers
             }
             base.Dispose(disposing);
         }
+        //menu
+        public ActionResult Menu()
+        {
+            return View();
+        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Menu(MenuLocationModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        ViewBag.result = model.Location + "working";
+        //    }
+        //    return View();
+        //}
+
     }
 }

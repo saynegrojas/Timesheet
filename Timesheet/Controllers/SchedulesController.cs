@@ -39,6 +39,12 @@ namespace Timesheet.Controllers
         // GET: Schedules/Create
         public ActionResult Create()
         {
+            //// load object and return in view
+            //ViewModel viewModel = Load(id);
+
+            //// get the previous url and store it with view model
+            //viewModel.PreviousUrl = System.Web.HttpContext.Current.Request.UrlReferrer;
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationID");
             ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName");
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription");
             return View();
@@ -57,7 +63,7 @@ namespace Timesheet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationID", schedule.LocationID);
             ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", schedule.DoctorID);
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription", schedule.HourCodeId);
             return View(schedule);

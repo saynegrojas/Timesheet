@@ -213,6 +213,7 @@
     <Compile Include="Models\Doctor.cs">
       <DependentUpon>TimeSheet.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\HourCode.cs">
       <DependentUpon>TimeSheet.tt</DependentUpon>
     </Compile>

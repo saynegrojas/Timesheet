@@ -13,7 +13,12 @@ namespace Timesheet.Controllers
     public class DoctorsController : Controller
     {
         private TimesheetEntities db = new TimesheetEntities();
-
+        //Gender selection
+        List<Doctor> genderList = new List<Doctor>
+        {
+            new Doctor { GenderName= "Male", GenderID = 1},
+            new Doctor { GenderName= "Female", GenderID = 2}
+        };
         // GET: Doctors
         public ActionResult Index()
         {
@@ -38,6 +43,8 @@ namespace Timesheet.Controllers
         // GET: Doctors/Create
         public ActionResult Create()
         {
+
+            ViewBag.GenderID = new SelectList(genderList, "GenderID", "GenderName");
             return View();
         }
 
@@ -46,10 +53,11 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FileNumber,FirstName,LastName,Sex,Phone,Email,DoctorId")] Doctor doctor)
+        public ActionResult Create([Bind(Include = "FileNumber,FirstName,LastName,Sex,Phone,Email,DoctorId, GenderID, GenderName")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
+                ViewBag.GenderID = new SelectList(genderList, "GenderID", "GenderName");
                 db.Doctors.Add(doctor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -123,5 +131,6 @@ namespace Timesheet.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }
