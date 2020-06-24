@@ -12,11 +12,11 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LocationID)
+            FirstName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
+            @*@Html.DisplayNameFor(model => model.UserID)*@
+            LastName
         <th>
             @Html.DisplayNameFor(model => model.Time_In)
         </th>
@@ -24,13 +24,13 @@
             @Html.DisplayNameFor(model => model.Time_Out)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Amount)
+            @Html.DisplayNameFor(model => model.LocationID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Doctor.FirstName)
+            @Html.DisplayNameFor(model => model.HourCodeId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HourCode.CodeDescription)
+            PayRate/Hour
         </th>
         <th></th>
     </tr>
@@ -38,10 +38,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.LocationID)
+            @Html.DisplayFor(modelItem => item.Doctor.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserID)
+            @Html.DisplayFor(modelItem => item.Doctor.LastName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Time_In)
@@ -50,13 +50,13 @@
             @Html.DisplayFor(modelItem => item.Time_Out)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.LocationID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HourCodeId)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Doctor.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HourCode.CodeDescription)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ScheduleID }) |

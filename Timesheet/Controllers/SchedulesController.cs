@@ -41,10 +41,13 @@ namespace Timesheet.Controllers
         public ActionResult Create(int id)
         {
             Doctor dr = db.Doctors.Single(emp => emp.FileNumber == id);
+            TempData["DoctorID"] = id;
             ViewBag.dr = dr;
             ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "DoctorId");
             ViewBag.LocationID = new SelectList(db.Locations, "LocationId", "LocationId");
-            ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription");
+            ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeId");
+            ViewBag.Amount = new SelectList(db.HourCodes, "CodeID", "CodeValue");
+            ViewBag.UserID = new SelectList(db.Users, "UserID", "UserID");
             return View();
         }
 
@@ -55,16 +58,17 @@ namespace Timesheet.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ScheduleID,DoctorID,LocationID,UserID,Time_In,Time_Out,HourCodeId,Amount")] Schedule schedule)
         {
+            schedule.DoctorID = (int?)TempData["DoctorID"];
             if (ModelState.IsValid)
             {
                 db.Schedules.Add(schedule);
-                db.SaveChanges();
+                    db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", schedule.DoctorID);
             ViewBag.LocationID = new SelectList(db.Locations, "LocationId", "LocationName", schedule.LocationID);
-            ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription", schedule.HourCodeId);
+            ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeID", schedule.HourCodeId);
             return View(schedule);
         }
 
