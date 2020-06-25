@@ -73,7 +73,9 @@ namespace Timesheet.Controllers
             if (ModelState.IsValid)
             {
                 //Hashing password 
-                //user.Password = Crypto.Hash(user.Password);
+                user.Password = Crypto.Hash(user.Password);
+                //Hash confirm password
+                user.confirmPassword = Crypto.Hash(user.confirmPassword);
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -149,21 +151,6 @@ namespace Timesheet.Controllers
             }
             base.Dispose(disposing);
         }
-        //menu
-        public ActionResult Menu()
-        {
-            return View();
-        }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Menu(MenuLocationModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        ViewBag.result = model.Location + "working";
-        //    }
-        //    return View();
-        //}
 
     }
 }

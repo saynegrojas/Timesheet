@@ -44,20 +44,40 @@ namespace Timesheet.Controllers
         }
 
         // POST: Locations/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "LocationID,LocationName,SectionID")] Location location)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Locations.Add(location);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.strSlectedSector = location.SectionID;
+                if (ModelState.IsValid)
+                {
+                    if (!String.IsNullOrEmpty(location.LocationName))
+                    {
+                        if (!(String.IsNullOrEmpty(location.LocationName) || db.chkLocationNameExist(location.LocationName)))
+                        {
+                            db.Locations.Add(location);
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
+                        else
+                            ViewBag.ValLocationName = String.IsNullOrEmpty(location.LocationName) ? "You have not entered a value for Location" : $"There already exist a Location named \"{location.LocationName}\"";
+                    }
+                    else
+                        ViewBag.ValSectorName = "Select a value for Sector Name";
+                }
+                ViewBag.SectionID = new SelectList(db.Sectors, "SectionID", "SectorName", location.SectionID);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.SectionID = new SelectList(db.Sectors, "SectionID", "SectorName", location.SectionID);
+                ViewBag.ValSummary = $"An error occured while creating this Location \n{ex.Message}";
             }
 
-            ViewBag.SectionID = new SelectList(db.Sectors, "SectionID", "SectorName", location.SectionID);
+
             return View(location);
         }
 
@@ -78,19 +98,41 @@ namespace Timesheet.Controllers
         }
 
         // POST: Locations/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "LocationID,LocationName,SectionID")] Location location)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(location).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    using (var context = new TimesheetEntities())
+                    {
+                        Location loc = context.Locations.Find(location.LocationID);
+                        if (loc != null)
+                        {
+                            if (!(String.IsNullOrEmpty(location.LocationName) || (context.chkLocationNameExist(location.LocationName) && loc.LocationName != location.LocationName)))
+                            {
+                                db.Entry(location).State = EntityState.Modified;
+                                db.SaveChanges();
+                                return RedirectToAction("Index");
+                            }
+                            else
+                                ViewBag.ValLocationName = String.IsNullOrEmpty(location.LocationName) ? "You have not entered a value for Location" : $"There already exist a Location named \"{location.LocationName}\"";
+                        }
+                        else
+                            ViewBag.LocationName = $"This location could not be found in the database";
+                    }
+                }
+                ViewBag.SectionID = new SelectList(db.Sectors, "SectorName", "SectorName", location.SectionID);
             }
-            ViewBag.SectionID = new SelectList(db.Sectors, "SectionID", "SectorName", location.SectionID);
+            catch (Exception ex)
+            {
+                ViewBag.SectionID = new SelectList(db.Sectors, "SectorName", "SectorName", location.SectionID);
+                ViewBag.ValLocationName = $"An error occured while updating this Location \n{ex.Message}";
+            }
             return View(location);
         }
 

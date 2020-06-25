@@ -20,7 +20,7 @@ namespace Timesheet.Models
         {
             this.Schedules = new HashSet<Schedule>();
         }
-    
+
         public Nullable<int> FileNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -37,5 +37,6 @@ namespace Timesheet.Models
         public virtual Location Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedules { get; set; }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,7 +11,6 @@ namespace Timesheet.Controllers
 {
     public class HomeController : Controller
     {
-        
         public ActionResult Index()
         {
             return View();
@@ -46,6 +46,7 @@ namespace Timesheet.Controllers
                 {
                     //Error message for incorrect email or password
                     user.LoginErrorMessage = "The Email or Password field is invalid.";
+                    //user.Password = Convert.ToString(Crypto.Decode(user.Password));
                     return View("Login", user);
                 }
                 else

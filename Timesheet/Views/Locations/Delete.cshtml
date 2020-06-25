@@ -1,25 +1,17 @@
 ﻿@model Timesheet.Models.Location
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = $"Confrim {Model.LocationName} Delete";
 }
 
-<style>
-    .logout {
-        margin-top: 10px;
-    }
-</style>
-<p class="text-right logout">
-    <a href="@Url.Action("Logout", "Home")">Log out</a>
-</p>
-<h2>Delete Location</h2>
+<h2>  </h2>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
+    <h4>Click Delete to permanetly delete the <b>@Model.LocationName</b> Location</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.LocationName)
+            Location Name
         </dt>
 
         <dd>
@@ -27,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Sector.SectorName)
+            Sector Name
         </dt>
 
         <dd>
@@ -36,13 +28,12 @@
 
     </dl>
 
-    @using (Html.BeginForm())
-    {
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "Index") |
+            <input type="submit" value="Delete" class="btn btn-default" />
         </div>
     }
 </div>

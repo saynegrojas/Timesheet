@@ -2,10 +2,10 @@
 
 @{
     ViewBag.Title = "Create";
-    //if (Session["email"] == null)
-    //{
-    //    Response.Redirect("~/Home/login");
-    //}
+    if (Session["email"] == null)
+    {
+        Response.Redirect("~/Home/login");
+    }
 }
         <div>
             <p class="text-right">

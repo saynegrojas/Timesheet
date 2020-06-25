@@ -1,74 +1,82 @@
 ﻿@model IEnumerable<Timesheet.Models.Schedule>
 
 @{ ViewBag.Title = "Index"; }
-<style>
-    .logout {
-        margin-top: 10px;
-    }
-</style>
-<p class="text-right logout">
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("User", "Index", "Users")</li>
+        <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
+        <li>@Html.ActionLink("Locations", "Index", "Locations")</li>
+        <li>@Html.ActionLink("Job Roles", "Index", "Job_Role")</li>
+        <li>@Html.ActionLink("Sectors", "Index", "Sectors")</li>
+        <li>@Html.ActionLink("Hour Code", "Index", "HourCodes")</li>
+    </ul>
+</div>
+<p class="text-right">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Index</h2>
+<h2>Schedule</h2>
+<p class="text-right">
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
-<table class="table">
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Location")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor.LastName)
+            </th>
+            <th>
+                @Html.DisplayName("Time in")
+            </th>
+            <th>
+                @Html.DisplayName("Time out")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.HourCode.CodeDescription)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LocationID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Time_In)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Time_Out)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Doctor.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HourCode.CodeDescription)
-        </th>
-        <th></th>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Doctor.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Doctor.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time_In)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time_Out)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HourCode.CodeDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ScheduleID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ScheduleID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ScheduleID })
+        </td>
     </tr>
+}
 
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.LocationID)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UserID)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Time_In)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Time_Out)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Amount)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Doctor.FirstName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.HourCode.CodeDescription)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.ScheduleID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.ScheduleID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.ScheduleID })
-    </td>
-</tr>}
-
-</table>
+    </table>

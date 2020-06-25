@@ -6,6 +6,9 @@
         <li>@Html.ActionLink("User", "Index", "Users")</li>
         <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
         <li>@Html.ActionLink("Locations", "Index", "Locations")</li>
+        <li>@Html.ActionLink("Job Roles", "Index", "Job_Role")</li>
+        <li>@Html.ActionLink("Sectors", "Index", "Sectors")</li>
+        <li>@Html.ActionLink("Hour Code", "Index", "HourCodes")</li>
     </ul>
 </div>
 <p class="text-right">
@@ -33,13 +36,21 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Location.LocationName, "Create", "Schedules", new { id = item.DoctorId }, null)
+                @Html.ActionLink(Convert.ToString(item.Location.LocationName), "Create", "Schedules", new { id = item.LocationID }, new { datatoggle = "tooltip", title = $"Click to set a schedule {item.FirstName} {item.LastName}" })
+                @*@Html.ActionLink(location, "Edit", new { id = item.LocationID }, new { datatoggle = "tooltip", title = $"Click to select {item.LocationName} location" })*@
+
+
             </td>
             <td>
-                @Html.ActionLink(Convert.ToString(item.FirstName), "Create", "Schedules", new { id = item.DoctorId }, null)
+                @*@Html.ActionLink(Convert.ToString(item.FirstName), "Create", "Schedules", new { id = item.DoctorId }, new { datatoggle = "tooltip", title = $"Click to set a schedule" })*@
+                @Html.DisplayFor(modelItem => item.FirstName)
+
             </td>
             <td>
-                @Html.ActionLink(Convert.ToString(item.LastName), "Create", "Schedules", new { id = item.DoctorId }, null)
+                @*@Html.ActionLink(Convert.ToString(item.LastName), "Create", "Schedules", new { id = item.DoctorId }, new { datatoggle = "tooltip", title = $"Click to set a schedule" })*@
+                @Html.DisplayFor(modelItem => item.LastName)
+
+
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.DoctorId }) |

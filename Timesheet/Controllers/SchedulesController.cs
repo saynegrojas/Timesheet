@@ -44,6 +44,7 @@ namespace Timesheet.Controllers
 
             //// get the previous url and store it with view model
             //viewModel.PreviousUrl = System.Web.HttpContext.Current.Request.UrlReferrer;
+            ViewBag.Amount = new SelectList(db.HourCodes, "CodeID", "CodeValue");
             ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName");
             ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName");
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription");
@@ -66,6 +67,8 @@ namespace Timesheet.Controllers
             ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName", schedule.LocationID);
             ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", "LastName", schedule.DoctorID);
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription", schedule.HourCodeId);
+            ViewBag.Amount = new SelectList(db.HourCodes, "CodeID", "CodeValue", schedule.HourCode.CodeID);
+
             return View(schedule);
         }
 

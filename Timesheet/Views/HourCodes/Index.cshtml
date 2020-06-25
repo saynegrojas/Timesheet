@@ -4,26 +4,30 @@
     ViewBag.Title = "Index";
 }
 
-<style>
-    .logout {
-        margin-top: 10px;
-    }
-</style>
-<p class="text-right logout">
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("User", "Index", "Users")</li>
+        <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
+        <li>@Html.ActionLink("Locations", "Index", "Locations")</li>
+        <li>@Html.ActionLink("Job Roles", "Index", "Job_Role")</li>
+        <li>@Html.ActionLink("Sectors", "Index", "Sectors")</li>
+        <li>@Html.ActionLink("Hour Code", "Index", "HourCodes")</li>
+    </ul>
+</div>
+<p class="text-right">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
 <h2>Hour Code</h2>
-
-<p>
+<p class="text-right">
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CodeDescription)
+            @Html.DisplayName("Code Description")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CodeValue)
+            @Html.DisplayName("Code Value")
         </th>
         <th></th>
     </tr>

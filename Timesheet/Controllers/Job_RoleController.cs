@@ -53,9 +53,15 @@ namespace Timesheet.Controllers
                 db.Job_Role.Add(job_Role);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            } else if (job_Role == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            } else
+            {
+                return View(job_Role);
+                
             }
 
-            return View(job_Role);
         }
 
         // GET: Job_Role/Edit/5

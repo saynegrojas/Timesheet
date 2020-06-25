@@ -54,7 +54,7 @@ namespace Timesheet.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FirstName,LastName,Phone,Email,LocationID,Sex")] Doctor doctor)
+        public ActionResult Create([Bind(Include = "FirstName,LastName,Phone,Email,LocationID,Sex, Address")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace Timesheet.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FileNumber,FirstName,LastName,Sex,Phone,Email,DoctorId,LocationID,Address")] Doctor doctor)
+        public ActionResult Edit([Bind(Include = "FirstName,LastName,Sex,Phone,Email,DoctorId,LocationID,Address")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
@@ -112,6 +112,7 @@ namespace Timesheet.Models
             {
                 return HttpNotFound();
             }
+            ViewBag.Sex = new SelectList(genderList, "GenderName", "GenderName", doctor.Sex);
             return View(doctor);
         }
 
@@ -123,6 +124,7 @@ namespace Timesheet.Models
             Doctor doctor = db.Doctors.Find(id);
             db.Doctors.Remove(doctor);
             db.SaveChanges();
+            ViewBag.Sex = new SelectList(genderList, "GenderName", "GenderName", doctor.Sex);
             return RedirectToAction("Index");
         }
 

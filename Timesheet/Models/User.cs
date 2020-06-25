@@ -32,5 +32,6 @@ namespace Timesheet.Models
         public Nullable<int> JobRoleID { get; set; }
         public string LoginErrorMessage { get; set; }
         public virtual Job_Role Job_Role { get; set; }
+
     }
 }
