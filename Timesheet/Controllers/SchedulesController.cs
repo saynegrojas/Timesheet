@@ -56,9 +56,12 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ScheduleID,DoctorID,LocationID,UserID,Time_In,Time_Out,HourCodeId,Amount")] Schedule schedule)
+        public ActionResult Create([Bind(Include = "ScheduleID,DoctorID,LocationID,UserID,Time_In,Time_Out,HourCodeId")] Schedule schedule, FormCollection data)
         {
+            int hi = Convert.ToInt32(data["HourCodeId"]);
+            HourCode hr = db.HourCodes.Single(emp => emp.CodeID == hi); 
             schedule.DoctorID = (int?)TempData["DoctorID"];
+            schedule.Amount = hr.CodeValue;
             if (ModelState.IsValid)
             {
                 db.Schedules.Add(schedule);
