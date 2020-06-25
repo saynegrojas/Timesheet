@@ -4,7 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<style>
+    .logout {
+        margin-top: 10px;
+    }
+</style>
+<p class="text-right logout">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
+<h2>Hour Code</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -20,20 +28,21 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CodeDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CodeValue)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CodeID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CodeID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CodeID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeValue)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CodeID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CodeID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CodeID })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -6,9 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Timesheet.Models;
 
-namespace Timesheet.Controllers
+namespace Timesheet.Models
 {
     public class DoctorsController : Controller
     {
@@ -19,10 +18,12 @@ namespace Timesheet.Controllers
             new Doctor { GenderName= "Male", GenderID = 1},
             new Doctor { GenderName= "Female", GenderID = 2}
         };
+
         // GET: Doctors
         public ActionResult Index()
         {
-            return View(db.Doctors.ToList());
+            var doctors = db.Doctors.Include(d => d.Location);
+            return View(doctors.ToList());
         }
 
         // GET: Doctors/Details/5
@@ -43,8 +44,8 @@ namespace Timesheet.Controllers
         // GET: Doctors/Create
         public ActionResult Create()
         {
-
-            ViewBag.GenderID = new SelectList(genderList, "GenderID", "GenderName");
+            ViewBag.Sex = new SelectList(genderList, "GenderName", "GenderName");
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName");
             return View();
         }
 
@@ -53,16 +54,16 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FileNumber,FirstName,LastName,Sex,Phone,Email,DoctorId, GenderID, GenderName")] Doctor doctor)
+        public ActionResult Create([Bind(Include = "FirstName,LastName,Phone,Email,LocationID,Sex")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
-                ViewBag.GenderID = new SelectList(genderList, "GenderID", "GenderName");
                 db.Doctors.Add(doctor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.Sex = new SelectList(genderList, "GenderName", "GenderName", doctor.Sex);
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName", doctor.LocationID);
             return View(doctor);
         }
 
@@ -78,6 +79,7 @@ namespace Timesheet.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName", doctor.LocationID);
             return View(doctor);
         }
 
@@ -86,7 +88,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FileNumber,FirstName,LastName,Sex,Phone,Email,DoctorId")] Doctor doctor)
+        public ActionResult Edit([Bind(Include = "FileNumber,FirstName,LastName,Sex,Phone,Email,DoctorId,LocationID,Address")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
@@ -94,6 +96,7 @@ namespace Timesheet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName", doctor.LocationID);
             return View(doctor);
         }
 
@@ -131,6 +134,5 @@ namespace Timesheet.Controllers
             }
             base.Dispose(disposing);
         }
-
     }
 }

@@ -19,20 +19,12 @@
                 <div class="form-horizontal">
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ScheduleID, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.ScheduleID, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ScheduleID, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         @*change label*@
                         @Html.LabelFor(model => model.DoctorID, "DoctorID", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-
-                            @Html.DropDownList("DoctorID", null, htmlAttributes: new { @class = "form-control" })
+                        <div class="col-md-10" id="txt">
+                            @Html.DropDownList("DoctorID", ViewData["DoctorID"] as IEnumerable<SelectListItem>, htmlAttributes: new { @class = "form-control dropdownlist", @required = "required" })
                             @Html.ValidationMessageFor(model => model.DoctorID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -86,3 +78,9 @@
 
 @*Goes back previous page doctors or locations*@
 <a href="javascript: history.go(-1)">Back to List</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(".dropdownlist").change(function () {
+       return 
+    });
+</script>

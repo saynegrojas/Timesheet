@@ -9,13 +9,15 @@
           <Key>
             <PropertyRef Name="DoctorId" />
           </Key>
-          <Property Name="FileNumber" Type="int" Nullable="false" />
+          <Property Name="FileNumber" Type="int" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="Sex" Type="nvarchar" MaxLength="6" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" />
           <Property Name="Email" Type="nvarchar" MaxLength="45" />
           <Property Name="DoctorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="HourCode">
           <Key>
@@ -44,10 +46,10 @@
           <Key>
             <PropertyRef Name="ScheduleID" />
           </Key>
-          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DoctorID" Type="int" />
           <Property Name="LocationID" Type="int" />
-          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="Time_In" Type="datetime" />
           <Property Name="Time_Out" Type="datetime" />
           <Property Name="HourCodeId" Type="int" />
@@ -79,10 +81,21 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="45" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" />
-          <Property Name="JobDescription" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="JobRoleID" Type="int" />
         </EntityType>
+        <Association Name="FK_Doctor_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Location_Sector">
           <End Role="Sector" Type="Self.Sector" Multiplicity="0..1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
@@ -140,6 +153,10 @@
           <EntitySet Name="Sector" EntityType="Self.Sector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Doctor_Location" Association="Self.FK_Doctor_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
           <AssociationSet Name="FK_Location_Sector" Association="Self.FK_Location_Sector">
             <End Role="Sector" EntitySet="Sector" />
             <End Role="Location" EntitySet="Location" />
@@ -166,13 +183,16 @@
           <Key>
             <PropertyRef Name="DoctorId" />
           </Key>
-          <Property Name="FileNumber" Type="Int32" Nullable="false" />
+          <Property Name="FileNumber" Type="Int32" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sex" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="DoctorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Doctor_Location" FromRole="Doctor" ToRole="Location" />
           <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_Doctor" FromRole="Doctor" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="HourCode">
@@ -199,16 +219,17 @@
           <Property Name="LocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LocationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SectionID" Type="Int32" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_Location" FromRole="Location" ToRole="Doctor" />
           <NavigationProperty Name="Sector" Relationship="Self.FK_Location_Sector" FromRole="Location" ToRole="Sector" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
             <PropertyRef Name="ScheduleID" />
           </Key>
-          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DoctorID" Type="Int32" />
           <Property Name="LocationID" Type="Int32" />
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="Time_In" Type="DateTime" Precision="3" />
           <Property Name="Time_Out" Type="DateTime" Precision="3" />
           <Property Name="HourCodeId" Type="Int32" />
@@ -243,11 +264,22 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="JobDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="JobRoleID" Type="Int32" />
           <NavigationProperty Name="Job_Role" Relationship="Self.FK_User_Job_Role" FromRole="User" ToRole="Job_Role" />
         </EntityType>
+        <Association Name="FK_Doctor_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Schedule_Doctor">
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
@@ -305,6 +337,10 @@
           <EntitySet Name="Sectors" EntityType="Self.Sector" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Doctor_Location" Association="Self.FK_Doctor_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
           <AssociationSet Name="FK_Schedule_Doctor" Association="Self.FK_Schedule_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="Schedule" EntitySet="Schedules" />
@@ -338,6 +374,8 @@
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -408,7 +446,6 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="JobRoleID" ColumnName="JobRoleID" />
               </MappingFragment>

@@ -1,10 +1,15 @@
 ﻿@model IEnumerable<Timesheet.Models.Job_Role>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+@{ ViewBag.Title = "Index"; }
+<style>
+    .logout {
+        margin-top: 10px;
+    }
+</style>
+<p class="text-right logout">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
+<h2>Job Role</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -17,17 +22,17 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.JobDescription)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.JobRoleID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.JobRoleID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.JobRoleID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.JobDescription)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.JobRoleID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.JobRoleID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.JobRoleID })
+    </td>
+</tr>}
 
 </table>

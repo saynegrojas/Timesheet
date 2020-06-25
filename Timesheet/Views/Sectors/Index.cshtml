@@ -1,9 +1,14 @@
 ﻿@model IEnumerable<Timesheet.Models.Sector>
 
-@{
-    ViewBag.Title = "Index";
-}
-
+@{ ViewBag.Title = "Index"; }
+<style>
+    .logout {
+        margin-top: 10px;
+    }
+</style>
+<p class="text-right logout">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
 <h2>Index</h2>
 
 <p>
@@ -17,17 +22,17 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SectorName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SectionID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SectionID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SectionID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.SectorName)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.SectionID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.SectionID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.SectionID })
+    </td>
+</tr>}
 
 </table>

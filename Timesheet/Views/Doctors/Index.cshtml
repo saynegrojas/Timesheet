@@ -11,43 +11,41 @@
 <p class="text-right">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Select Dr</h2>
+<h2>Select Doctor</h2>
 <p class="text-right">
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FileNumber)
+            @Html.DisplayName("Location")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayName("First Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayName("Last Name")
         </th>
         <th>
     </tr>
 
     @foreach (var item in Model)
     {
-        var file = item.FileNumber + "";
-        //var firstName = item.FirstName + "";
-        //var lastName = item.LastName + "";
-<tr>
-    <td>
-        @Html.ActionLink(file, "Create", "Schedules", new { id = item.DoctorId }, null)
-    </td>
-    <td>
-        @Html.ActionLink(item.FirstName, "Create", "Schedules", new { id = item.DoctorId }, null)
-    </td>
-    <td>
-        @Html.ActionLink(item.LastName, "Create", "Schedules", new { id = item.DoctorId }, null)
-    </td>
-    <td>
-        @Html.ActionLink("Details", "Details", new { id = item.DoctorId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.DoctorId })
-    </td>
-</tr>}
+        <tr>
+            <td>
+                @Html.ActionLink(item.Location.LocationName, "Create", "Schedules", new { id = item.DoctorId }, null)
+            </td>
+            <td>
+                @Html.ActionLink(Convert.ToString(item.FirstName), "Create", "Schedules", new { id = item.DoctorId }, null)
+            </td>
+            <td>
+                @Html.ActionLink(Convert.ToString(item.LastName), "Create", "Schedules", new { id = item.DoctorId }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.DoctorId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.DoctorId })
+            </td>
+        </tr>
+}
 
 </table>

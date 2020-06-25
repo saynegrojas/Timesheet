@@ -44,7 +44,7 @@ namespace Timesheet.Controllers
 
             //// get the previous url and store it with view model
             //viewModel.PreviousUrl = System.Web.HttpContext.Current.Request.UrlReferrer;
-            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationID");
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName");
             ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName");
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription");
             return View();
@@ -55,7 +55,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ScheduleID,DoctorID,LocationID,UserID,Time_In,Time_Out,HourCodeId,Amount")] Schedule schedule)
+        public ActionResult Create([Bind(Include = "DoctorID,LocationID,UserID,Time_In,Time_Out,HourCodeId,Amount")] Schedule schedule)
         {
             if (ModelState.IsValid)
             {
@@ -63,8 +63,8 @@ namespace Timesheet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationID", schedule.LocationID);
-            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", schedule.DoctorID);
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName", schedule.LocationID);
+            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", "LastName", schedule.DoctorID);
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription", schedule.HourCodeId);
             return View(schedule);
         }
@@ -81,7 +81,7 @@ namespace Timesheet.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", schedule.DoctorID);
+            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "FirstName", "LastName", schedule.DoctorID);
             ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription", schedule.HourCodeId);
             return View(schedule);
         }

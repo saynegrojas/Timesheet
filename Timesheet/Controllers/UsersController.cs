@@ -58,6 +58,8 @@ namespace Timesheet.Controllers
         public ActionResult Create()
         {
             ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription");
+            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobRoleID", "JobDescription");
+
             return View();
         }
 
@@ -66,17 +68,16 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password,JobRoleID")] User user)
+        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password,confirmPassword,JobRoleID")] User user)
         {
             if (ModelState.IsValid)
             {
                 //Hashing password 
-                user.Password = Crypto.Hash(user.Password);
+                //user.Password = Crypto.Hash(user.Password);
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription", user.JobRoleID);
             return View(user);
         }
