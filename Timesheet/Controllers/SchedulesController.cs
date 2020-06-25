@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -8,6 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
 using Timesheet.Models;
+using PagedList.Mvc;
 
 namespace Timesheet.Controllers
 {
@@ -16,10 +18,39 @@ namespace Timesheet.Controllers
         private TimeSheetEntities db = new TimeSheetEntities();
 
         // GET: Schedules
-        public ActionResult Index()
+        public ActionResult Index(string searchBy, string search, int? page, string sortBy)
         {
-            var schedules = db.Schedules.Include(s => s.Doctor).Include(s => s.HourCode);
-            return View(schedules.ToList());
+            ViewBag.SortNameParameter = string.IsNullOrEmpty(sortBy) ? "Name asc" : "";
+            ViewBag.SortFileNumberParameter = string.IsNullOrEmpty(sortBy) ? "FileNumber" : "";
+
+            var schedules = db.Schedules.Include(s => s.Doctor).Include(s => s.HourCode).AsQueryable();
+
+            if (searchBy == "FileNumber")
+            {
+                int id = Convert.ToInt32(search);
+                schedules = schedules.Where(x => x.Doctor.FileNumber == id || search == null);
+                //return View(schedules.ToList().ToPagedList(page ?? 1, 5));
+            }
+            else
+            {
+                schedules = schedules.Where(x => x.Doctor.FirstName.StartsWith(search) || search == null);
+                //return View(schedules.ToList().ToPagedList(page ?? 1, 5));
+            }
+
+            switch (sortBy)
+            {
+                case "Name asc":
+                    schedules = schedules.OrderBy(x => x.Doctor.FirstName);
+                    break;
+                case "FileNumber":
+                    schedules = schedules.OrderBy(x => x.Doctor.FileNumber);
+                    break;
+            }
+            
+
+            return View(schedules.ToList().ToPagedList(page ?? 1, 5));
+
+
         }
 
         // GET: Schedules/Details/5
@@ -41,13 +72,11 @@ namespace Timesheet.Controllers
         public ActionResult Create(int id)
         {
             Doctor dr = db.Doctors.Single(emp => emp.FileNumber == id);
-            TempData["DoctorID"] = id;
+            TempData["DoctorID"] = dr.DoctorId;
             ViewBag.dr = dr;
-            ViewBag.DoctorID = new SelectList(db.Doctors, "DoctorId", "DoctorId");
-            ViewBag.LocationID = new SelectList(db.Locations, "LocationId", "LocationId");
-            ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeId");
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName");
+            ViewBag.HourCodeId = new SelectList(db.HourCodes, "CodeID", "CodeDescription");
             ViewBag.Amount = new SelectList(db.HourCodes, "CodeID", "CodeValue");
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "UserID");
             return View();
         }
 
@@ -56,16 +85,16 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ScheduleID,DoctorID,LocationID,UserID,Time_In,Time_Out,HourCodeId")] Schedule schedule, FormCollection data)
+        public ActionResult Create([Bind(Include = "LocationID,Time_In,Time_Out,HourCodeId")] Schedule schedule, FormCollection data)
         {
             int hi = Convert.ToInt32(data["HourCodeId"]);
             HourCode hr = db.HourCodes.Single(emp => emp.CodeID == hi); 
-            schedule.DoctorID = (int?)TempData["DoctorID"];
+            schedule.DoctorID = Convert.ToInt32(TempData["DoctorID"]);
             schedule.Amount = hr.CodeValue;
             if (ModelState.IsValid)
             {
                 db.Schedules.Add(schedule);
-                    db.SaveChanges();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 

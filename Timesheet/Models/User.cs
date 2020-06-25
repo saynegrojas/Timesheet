@@ -19,12 +19,10 @@ namespace Timesheet.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string JobDescription { get; set; }
         public string Password { get; set; }
         public Nullable<int> JobRoleID { get; set; }
-    
-        public virtual Job_Role Job_Role { get; set; }
-
         public string LoginErrorMessage { get; set; }
+
+        public virtual Job_Role Job_Role { get; set; }
     }
 }

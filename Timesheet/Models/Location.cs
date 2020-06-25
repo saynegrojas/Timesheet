@@ -14,10 +14,18 @@ namespace Timesheet.Models
     
     public partial class Location
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Location()
+        {
+            this.Doctors = new HashSet<Doctor>();
+        }
+    
         public int LocationID { get; set; }
         public string LocationName { get; set; }
         public Nullable<int> SectionID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Doctor> Doctors { get; set; }
         public virtual Sector Sector { get; set; }
     }
 }
