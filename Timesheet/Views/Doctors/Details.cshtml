@@ -1,18 +1,16 @@
 ﻿@model Timesheet.Models.Doctor
 
-@{
-    ViewBag.Title = "Details";
-}
+@{ ViewBag.Title = $"Dr. {Model.LastName} Details"; }
 
 <style>
     .logout {
-        margin-top: 10px;
+        margin-top: 50px;
     }
 </style>
 <p class="text-right logout">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Doctor Detail</h2>
+<h2>Dr. <b>@Model.LastName </b>'s</b> Details</h2>
 
 <div>
     <hr />

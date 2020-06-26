@@ -1,20 +1,16 @@
 ﻿@model Timesheet.Models.Job_Role
 
-@{
-    ViewBag.Title = "Delete";
-}
+@{ ViewBag.Title = $" Delete {Model.JobDescription}"; }
 
 <style>
     .logout {
-        margin-top: 10px;
+        margin-top: 50px;
     }
 </style>
 <p class="text-right logout">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Delete Job Role</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h2>Are you sure you want to delete <b>@Model.JobDescription</b>?</h2>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -30,13 +26,12 @@
 
     @using (Html.BeginForm())
     {
-        @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
 
-<div class="form-actions no-color">
-    <input type="submit" value="Delete" class="btn btn-default" />
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</div>
-    }
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                    <div>
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>}
 </div>

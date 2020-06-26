@@ -1,16 +1,16 @@
 ﻿@model Timesheet.Models.Job_Role
 
-@{ ViewBag.Title = "Details"; }
+@{ ViewBag.Title = $"Dr. {Model.JobDescription} Details"; }
 
 <style>
     .logout {
-        margin-top: 10px;
+        margin-top: 50px;
     }
 </style>
 <p class="text-right logout">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Job Role Details</h2>
+<h2><b>@Model.JobDescription</b> Details</h2>
 
 <div>
     <hr />

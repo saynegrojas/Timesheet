@@ -1,18 +1,16 @@
 ﻿@model Timesheet.Models.HourCode
 
-@{
-    ViewBag.Title = "Details";
-}
+@{ ViewBag.Title = $"{Model.CodeDescription} Details"; }
 
 <style>
     .logout {
-        margin-top: 10px;
+        margin-top: 50px;
     }
 </style>
 <p class="text-right logout">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Hour Code Details</h2>
+<h2> <b>@Model.CodeDescription</b> Details</h2>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -29,7 +27,7 @@
         </dt>
 
         <dd>
-           $ @Html.ActionLink(Convert.ToString(Model.CodeValue), "Edit", new { id = Model.CodeID }, new { datatoggle = "tooltip", title = $"Click to edit {Model.CodeValue}" })
+            $ @Html.ActionLink(Convert.ToString(Model.CodeValue), "Edit", new { id = Model.CodeID }, new { datatoggle = "tooltip", title = $"Click to edit {Model.CodeValue}" })
 
         </dd>
 

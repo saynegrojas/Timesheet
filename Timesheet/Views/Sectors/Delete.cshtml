@@ -1,9 +1,16 @@
 ﻿@model Timesheet.Models.Sector
 
-@{
-    ViewBag.Title = $"Confrim {Model.SectorName} Delete";
-}
-    <h2>Are you sure you want to delete <b>@Model.SectorName</b> Sector?</h2>
+@{ ViewBag.Title = $" Delete {Model.SectorName}"; }
+
+<style>
+    .logout {
+        margin-top: 50px;
+    }
+</style>
+<p class="text-right logout">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
+<h2>Are you sure you want to delete <b>@Model.SectorName</b> sector?</h2>
 
 <div>
     <hr />
@@ -18,13 +25,13 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+@Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" />
-        </div>
-    }
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                </div>}
 </div>
 <div>
     @Html.ActionLink("Back to List", "Index")

@@ -1,13 +1,18 @@
 ﻿@model Timesheet.Models.Schedule
 
-@{
-    ViewBag.Title = "Details";
-}
+@{ ViewBag.Title = $"{Model.Doctor.LastName} Details"; }
 
-<h2>Details</h2>
+<style>
+    .logout {
+        margin-top: 50px;
+    }
+</style>
+<p class="text-right logout">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
+<h2>Dr. <b>@Model.Doctor.LastName's Schedule </b> Details</h2>
 
 <div>
-    <h4>Schedule</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
