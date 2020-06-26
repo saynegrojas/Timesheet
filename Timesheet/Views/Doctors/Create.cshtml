@@ -23,7 +23,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.LocationID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("LocationID", ViewData["LocationID"] as IEnumerable<SelectListItem>, "--Select a Location--", htmlAttributes: new { @class = "form-control", @required = "required" })
+            @Html.DropDownList("LocationID", ViewData["LocationID"] as IEnumerable<SelectListItem>, "--Select a doctor--", htmlAttributes: new { @class = "form-control", @required = "required" })
             @Html.ValidationMessageFor(model => model.LocationID, "", new { @class = "text-danger" })
         </div>
     </div>

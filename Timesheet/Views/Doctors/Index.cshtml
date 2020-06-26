@@ -18,10 +18,10 @@
 <p class="text-right">
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-striped table-hover">
     <tr>
         <th>
-            @Html.DisplayName("Location")
+            @Html.DisplayName("Doctor ID")
         </th>
         <th>
             @Html.DisplayName("First Name")
@@ -36,9 +36,8 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(Convert.ToString(item.Location.LocationName), "Create", "Schedules", new { id = item.LocationID }, new { datatoggle = "tooltip", title = $"Click to set a schedule {item.FirstName} {item.LastName}" })
+                @Html.ActionLink(Convert.ToString(item.DoctorId), "Create", "Schedules", new { id = item.DoctorId }, new { datatoggle = "tooltip", title = $"Click to schedule {item.FirstName} {item.LastName}" })
                 @*@Html.ActionLink(location, "Edit", new { id = item.LocationID }, new { datatoggle = "tooltip", title = $"Click to select {item.LocationName} location" })*@
-
 
             </td>
             <td>
@@ -53,6 +52,7 @@
 
             </td>
             <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.DoctorId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.DoctorId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.DoctorId })
             </td>

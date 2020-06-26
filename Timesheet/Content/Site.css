@@ -35,8 +35,13 @@ a {
     text-decoration: none;
     font-weight: 400;
 }
+a.first-name {
+    color: #333333;
+    font-weight: bold;
+}
+    }
 dd, td {
-    color: #555555;
+    color: #D0D0D0;
 }
 th {
     background-color:darkgrey;
@@ -155,6 +160,8 @@ input[type=text] {
     input[type=text]:placeholder {
         color: #cccccc;
     }
+
+
 /* ANIMATIONS */
 
 /* Simple CSS3 Fade-in Animation */
@@ -178,7 +185,7 @@ input[type=text] {
     padding: 7px;
 }
     .table tr:hover {
-        background-color: #F0F0F0;
+        background-color: #E0E0E0;
     }
 /* OTHERS */
 

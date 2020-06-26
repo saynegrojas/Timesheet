@@ -105,7 +105,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password,JobRoleID")] User user)
+        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobRoleID, Password, confirmPassword")] User user)
         {
             if (ModelState.IsValid)
             {
