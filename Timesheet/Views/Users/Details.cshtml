@@ -1,18 +1,21 @@
 ﻿@model Timesheet.Models.User
 
-@{
-    ViewBag.Title = "Details";
+@{ ViewBag.Title = $"{Model.FirstName} Details";
     if (Session["email"] == null)
     {
         Response.Redirect("~/Home/login");
     }
-}
-    <div>
-        <p class="text-right">
-            <a href="@Url.Action("Logout", "Home")">Log out</a>
-        </p>
-        <h2>User Details</h2>
-    </div>
+ }
+<style>
+    .logout {
+        margin-top: 50px;
+    }
+</style>
+<p class="text-right logout">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
+<h2><b>@Model.FirstName's </b> Details</h2>
+<div>
     <hr />
     <dl class="dl-horizontal">
         <dt>

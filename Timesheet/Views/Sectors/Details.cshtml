@@ -1,13 +1,18 @@
 ﻿@model Timesheet.Models.Sector
 
-@{
-    ViewBag.Title = $"{Model.SectorName} Sector Details";
-}
+@{ ViewBag.Title = $"{Model.SectorName} Details"; }
 
-<h2> </h2>
+<style>
+    .logout {
+        margin-top: 50px;
+    }
+</style>
+<p class="text-right logout">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
+<h2> <b>@Model.SectorName</b> Details</h2>
 
 <div>
-    <h4>Sector</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
