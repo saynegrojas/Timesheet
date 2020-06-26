@@ -46,7 +46,7 @@ namespace Timesheet.Controllers
                 if (userValues == null)
                 {
                     //Error message for incorrect email or password
-                    user.LoginErrorMessage = "The Email or Password field is invalid.";
+                    //user.LoginErrorMessage = "The Email or Password field is invalid.";
                     return View("Login", user);
                 }
                 else
