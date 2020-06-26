@@ -3,14 +3,14 @@
 @{
     ViewBag.Title = "Create";
 }
-<h2>Schedule Create</h2>
+<h2>Create Schedule</h2>
 
 @using (Html.BeginForm())
 {@Html.AntiForgeryToken()
 
 <div class="form-horizontal">
 
-    <h4>Doctor ID: &nbsp; @ViewBag.dr.DoctorId &emsp; Doctor Name: &nbsp;  @ViewBag.dr.FirstName &nbsp; @ViewBag.dr.LastName</h4>
+    <h4>Doctor ID: &nbsp; @ViewBag.dr.DoctorId &emsp; Dr: &nbsp;  @ViewBag.dr.FirstName &nbsp; @ViewBag.dr.LastName</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -27,7 +27,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Time_In, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Time_In, new { htmlAttributes = new { @class = "form-control", @type = "datetime" } })
+            @Html.EditorFor(model => model.Time_In, new { htmlAttributes = new { @class = "form-control datepicker", @type = "time" } })
             @Html.ValidationMessageFor(model => model.Time_In, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -35,7 +35,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Time_Out, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Time_Out, new { htmlAttributes = new { @class = "form-control", @type = "datetime" } })
+            @Html.EditorFor(model => model.Time_Out, new { htmlAttributes = new { @class = "form-control datepicker", @type = "time" } })
             @Html.ValidationMessageFor(model => model.Time_Out, "", new { @class = "text-danger" })
         </div>
     </div>

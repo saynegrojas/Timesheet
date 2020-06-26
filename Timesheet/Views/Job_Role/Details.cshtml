@@ -18,14 +18,13 @@
         <dt>
             @Html.DisplayNameFor(model => model.JobDescription)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.JobDescription)
+            @Html.ActionLink(Model.JobDescription, "Edit", new { id = Model.JobRoleID }, new { datatoggle = "tooltip", title = $"Click to edit {Model.JobDescription} role" })
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.JobRoleID }) |
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.JobRoleID }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>

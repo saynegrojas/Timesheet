@@ -1,19 +1,25 @@
 ﻿@model Timesheet.Models.User
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = $"Edit {Model.FirstName}";
+
     if (Session["email"] == null)
     {
         Response.Redirect("~/Home/login");
     }
 }
-
+<style>
+    .logout {
+        margin-top: 50px;
+    }
+</style>
     <div>
-        <p class="text-right">
+        <p class="text-right logout">
             <a href="@Url.Action("Logout", "Home")">Log out</a>
         </p>
-        <h2>Edit User</h2>
     </div>
+
+ <h2>Edit <b>@Model.FirstName @Model.LastName</b></h2>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()

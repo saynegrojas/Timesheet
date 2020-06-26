@@ -14,7 +14,7 @@
 <p class="text-right">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Select Doctor</h2>
+<h2>Select a Doctor</h2>
 <p class="text-right">
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -36,7 +36,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(Convert.ToString(item.DoctorId), "Create", "Schedules", new { id = item.DoctorId }, new { datatoggle = "tooltip", title = $"Click to schedule {item.FirstName} {item.LastName}" })
+                @Html.ActionLink(Convert.ToString(item.DoctorId), "Create", "Schedules", new { id = item.DoctorId } ,new { datatoggle = "tooltip", title = $"Click to schedule {item.FirstName} {item.LastName}" })
                 @*@Html.ActionLink(location, "Edit", new { id = item.LocationID }, new { datatoggle = "tooltip", title = $"Click to select {item.LocationName} location" })*@
 
             </td>

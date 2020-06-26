@@ -17,24 +17,24 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CodeDescription)
+            @Html.DisplayName("Code Description")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CodeDescription)
+            @Html.ActionLink(Model.CodeDescription, "Edit", new { id = Model.CodeID }, new { datatoggle = "tooltip", title = $"Click to edit {Model.CodeDescription} code" })
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CodeValue)
+            @Html.DisplayName("Code Value")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CodeValue)
+           $ @Html.ActionLink(Convert.ToString(Model.CodeValue), "Edit", new { id = Model.CodeID }, new { datatoggle = "tooltip", title = $"Click to edit {Model.CodeValue}" })
+
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CodeID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

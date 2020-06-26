@@ -3,11 +3,9 @@
 @{
     ViewBag.Title = $"Confrim {Model.SectorName} Delete";
 }
-
-<h2>  </h2>
+    <h2>Are you sure you want to delete <b>@Model.SectorName</b> Sector?</h2>
 
 <div>
-    <h4>Click Delete to permanetly delete the <b>@Model.SectorName</b> Sector</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -24,8 +22,10 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            @Html.ActionLink("Back to List", "Index") |
             <input type="submit" value="Delete" class="btn btn-default" />
         </div>
     }
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
 </div>

@@ -11,19 +11,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.LocationID)
+            @Html.DisplayName("Location")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LocationID)
+            @Html.ActionLink(Model.Doctor.Location.LocationName, "Edit", new { id = Model.LocationID }, new { datatoggle = "tooltip", title = $"Click to edit {Model.Doctor.Location.LocationName} " })
+
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.UserID)
+            @Html.DisplayName("Name")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserID)
+            @Html.DisplayFor(model => model.Doctor.FirstName) @Html.DisplayFor(model => model.Doctor.LastName)
         </dd>
 
         <dt>
@@ -43,7 +43,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Amount)
+            @Html.DisplayName("Pay rate")
         </dt>
 
         <dd>
@@ -51,15 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Doctor.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Doctor.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HourCode.CodeDescription)
+            @Html.DisplayName("Code Description")
         </dt>
 
         <dd>

@@ -3,8 +3,17 @@
 @{
     ViewBag.Title = $"Edit {Model.SectorName} Sector";
 }
-
-<h2>  </h2>
+<style>
+    .logout {
+        margin-top: 50px;
+    }
+</style>
+    <div>
+        <p class="text-right logout">
+            <a href="@Url.Action("Logout", "Home")">Log out</a>
+        </p>
+    </div>
+<h2>Edit <b>@Model.SectorName</b> Sector</h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +21,6 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Edit <b>@Model.SectorName</b> Sector</h4>
     <hr />
     <input type="hidden" name="oldSectorName" value="@Model.SectorName" />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -37,7 +45,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

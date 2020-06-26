@@ -1,24 +1,28 @@
 ﻿@model Timesheet.Models.Doctor
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = $"Edit DR. {Model.LastName}";
+
 }
 
 <style>
     .logout {
-        margin-top: 10px;
+        margin-top: 50px;
     }
 </style>
 <p class="text-right logout">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Edit Doctor</h2>
+@*<h2>Edit Doctor</h2>*@
+    <h2>Edit Dr. <b>@Model.FirstName @Model.LastName</b></h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
+
+
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">

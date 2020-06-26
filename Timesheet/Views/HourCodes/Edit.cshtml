@@ -1,18 +1,18 @@
 ﻿@model Timesheet.Models.HourCode
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = $"Edit {Model.CodeDescription}";
 }
 
 <style>
     .logout {
-        margin-top: 10px;
+        margin-top: 50px;
     }
 </style>
 <p class="text-right logout">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Edit Hour Code</h2>
+    <h2>Edit <b>@Model.CodeDescription</b></h2>
 
 @using (Html.BeginForm())
 {

@@ -3,8 +3,18 @@
 @{
     ViewBag.Title = $"Edit {Model.LocationName} Location";
 }
+<style>
+    .logout {
+        margin-top: 50px;
+    }
+</style>
+    <div>
+        <p class="text-right logout">
+            <a href="@Url.Action("Logout", "Home")">Log out</a>
+        </p>
+    </div>
+<h2>Edit <b>@Model.LocationName</b> Location</h2>
 
-<h2> </h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +22,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Edit <b>@Model.LocationName</b> Location</h4>
         <hr />
         @Html.ValidationSummary(true, ViewBag.ValLocationName as string, new { @class = "text-danger" })
         @Html.HiddenFor(model => model.LocationID)

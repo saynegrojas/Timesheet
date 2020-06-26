@@ -1,15 +1,17 @@
 ﻿@model Timesheet.Models.Job_Role
 
-@{ ViewBag.Title = "Edit"; }
+@{ 
+    ViewBag.Title = $"Edit {Model.JobDescription}";
+}
 <style>
     .logout {
-        margin-top: 10px;
+        margin-top: 50px;
     }
 </style>
 <p class="text-right logout">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Edit Job Role</h2>
+ <h2>Edit <b>@Model.JobDescription </b></h2>
 
 @using (Html.BeginForm())
 {

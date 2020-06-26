@@ -12,7 +12,7 @@
 <p class="text-right logout">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
-<h2>Create Doctor</h2>
+<h2>Create a Doctor</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -23,7 +23,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.LocationID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("LocationID", ViewData["LocationID"] as IEnumerable<SelectListItem>, "--Select a doctor--", htmlAttributes: new { @class = "form-control", @required = "required" })
+            @Html.DropDownList("LocationID", ViewData["LocationID"] as IEnumerable<SelectListItem>, "-- Select a location --", htmlAttributes: new { @class = "form-control", @required = "required" })
             @Html.ValidationMessageFor(model => model.LocationID, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -48,7 +48,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("Sex", ViewData["Sex"] as IEnumerable<SelectListItem>, "--Select a Sex--", htmlAttributes: new { @class = "form-control", @required = "required" })
+            @Html.DropDownList("Sex", ViewData["Sex"] as IEnumerable<SelectListItem>, "-- Select a Sex --", htmlAttributes: new { @class = "form-control", @required = "required" })
             @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
         </div>
     </div>
