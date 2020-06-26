@@ -353,6 +353,7 @@
     <Content Include="Views\Sectors\Details.cshtml" />
     <Content Include="Views\Sectors\Edit.cshtml" />
     <Content Include="Views\Sectors\Index.cshtml" />
+    <Content Include="Views\Schedules\Calendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

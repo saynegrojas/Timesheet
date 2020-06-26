@@ -29,12 +29,10 @@ namespace Timesheet.Controllers
             {
                 int id = Convert.ToInt32(search);
                 schedules = schedules.Where(x => x.Doctor.FileNumber == id || search == null);
-                //return View(schedules.ToList().ToPagedList(page ?? 1, 5));
             }
             else 
             {
                 schedules = schedules.Where(x => x.Doctor.FirstName.StartsWith(search) || search == null);
-                //return View(schedules.ToList().ToPagedList(page ?? 1, 5));
             } 
 
             switch (sortBy)
@@ -45,12 +43,40 @@ namespace Timesheet.Controllers
                 case "FileNumber":
                     schedules = schedules.OrderBy(x => x.Doctor.FileNumber);
                     break;
+                //default:
+                //    schedules = schedules.OrderBy(x => x.Doctor.FirstName);
+                //    break;
             }
-
-
             return View(schedules.ToList().ToPagedList(page ?? 1, 5));
+        }
 
+        public ActionResult Calendar()
+        {
+            //ViewBag.SortNameParameter = string.IsNullOrEmpty(sortBy) ? "Name asc" : "";
+            //ViewBag.SortFileNumberParameter = string.IsNullOrEmpty(sortBy) ? "FileNumber" : "";
 
+            //var schedules = db.Schedules.Include(s => s.Doctor).Include(s => s.HourCode).AsQueryable();
+
+            //if (searchBy == "FileNumber")
+            //{
+            //    int id = Convert.ToInt32(search);
+            //    schedules = schedules.Where(x => x.Doctor.FileNumber == id || search == null);
+            //}
+            //else
+            //{
+            //    schedules = schedules.Where(x => x.Doctor.FirstName.StartsWith(search) || search == null);
+            //}
+
+            //switch (sortBy)
+            //{
+            //    case "Name asc":
+            //        schedules = schedules.OrderBy(x => x.Doctor.FirstName);
+            //        break;
+            //    case "FileNumber":
+            //        schedules = schedules.OrderBy(x => x.Doctor.FileNumber);
+            //        break;
+            //}
+            return View();
         }
 
         // GET: Schedules/Details/5
