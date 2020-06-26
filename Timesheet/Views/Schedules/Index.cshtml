@@ -76,6 +76,9 @@
 <table class="table table-striped table-hover">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.First().Doctor.DoctorId)
+        </th>
+        <th>
             @*@Html.DisplayNameFor(model => model.First().Doctor.FirstName)*@
             @Html.ActionLink("FirstName", "Index", new { sortBy = ViewBag.SortNameParameter, searchBy = Request.QueryString["searchBy"], search = Request["search"] }, htmlAttributes: new { @class = "first-name", datatoggle = "tooltip", title = $"Click to sort by first name" })
             @*@Html.ActionLink(item.CodeDescription, "Details", new { id = item.CodeID }, new { datatoggle = "tooltip", title = $"Click for details" })*@
@@ -110,34 +113,37 @@
     {
         foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Doctor.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Doctor.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Time_In)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Time_Out)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Doctor.Location.LocationName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HourCode.CodeDescription)
-                </td>
-                <td>
-                    $ @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ScheduleID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ScheduleID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ScheduleID })
-                </td>
-            </tr>
+<tr>
+    <td>
+        @Html.ActionLink(Convert.ToString(item.Doctor.DoctorId), "Create", "Schedules", new { id = item.Doctor.DoctorId }, new { datatoggle = "tooltip", title = $"Click to schedule {item.Doctor.FirstName} {item.Doctor.LastName}" })
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Doctor.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Doctor.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Time_In)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Time_Out)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Doctor.Location.LocationName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.HourCode.CodeDescription)
+    </td>
+    <td>
+        $ @Html.DisplayFor(modelItem => item.Amount)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ScheduleID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ScheduleID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ScheduleID })
+    </td>
+</tr>
         }
     }
 

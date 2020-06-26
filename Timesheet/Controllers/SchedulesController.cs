@@ -85,10 +85,14 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LocationID,Time_In,Time_Out,HourCodeId")] Schedule schedule, FormCollection data)
+        public ActionResult Create([Bind(Include = "LocationID,HourCodeId")] Schedule schedule, FormCollection data)
         {
             int hi = Convert.ToInt32(data["HourCodeId"]);
             HourCode hr = db.HourCodes.Single(emp => emp.CodeID == hi);
+            string timein = data["Date"] + " " + data["Time_In"];
+            string timeout = data["Date"] + " " + data["Time_Out"];
+            schedule.Time_In = DateTime.ParseExact(timein, "yyyy-MM-dd HH:mm", null);
+            schedule.Time_Out = DateTime.ParseExact(timeout, "yyyy-MM-dd HH:mm", null);
             schedule.DoctorID = Convert.ToInt32(TempData["DoctorID"]);
             schedule.Amount = hr.CodeValue;
             if (ModelState.IsValid)
