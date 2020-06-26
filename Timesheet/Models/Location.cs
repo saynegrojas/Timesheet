@@ -17,15 +17,15 @@ namespace Timesheet.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Location()
         {
-            this.Schedules = new HashSet<Schedule>();
+            this.Doctors = new HashSet<Doctor>();
         }
     
-        public string LocationID { get; set; }
+        public int LocationID { get; set; }
         public string LocationName { get; set; }
-        public string SectorName { get; set; }
+        public Nullable<int> SectionID { get; set; }
     
-        public virtual Sector Sector { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Schedule> Schedules { get; set; }
+        public virtual ICollection<Doctor> Doctors { get; set; }
+        public virtual Sector Sector { get; set; }
     }
 }

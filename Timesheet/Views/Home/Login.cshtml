@@ -1,46 +1,60 @@
 ﻿@model Timesheet.Models.User
 @{
     ViewBag.Title = "Login";
+
 }
-<body>
-    <div class="jumbotron">
-        <div>
-            <h2 class="text-center">
-                Login
-            </h2>
-            @using (Html.BeginForm("Index", "Users", FormMethod.Post))
+<head>
+    <meta name="viewport" content="width-device-width" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+       
+            @using (Html.BeginForm("Login", "Home", FormMethod.Post))
             {
-                <div style="color: red;">
+                @Html.AntiForgeryToken()
+                <div class="email">
                     @Html.EditorFor(model => model.Email, new
                 {
                    htmlAttributes = new
                    {
                        @class = "form-control input-sm",
-                       @style = "margin: 0px auto; width: 600px; height: 40px;",
+                       @style = "margin: 0px auto; min-width: 300px; height: 40px;",
                             placeholder = @Html.DisplayNameFor(m => m.Email)
                    }
                 })
                 </div>
-                <div>
+                <div class="text-center" style="color: red; margin: 0px auto;">
                     @Html.ValidationMessageFor(model => model.Email)
                 </div>
                 <br />
-                <div>
-                    @Html.TextBox("Password", null, new { @class = "form-control input-sm", @placeholder = "Password", @style = "margin: 0px auto; width: 600px; height: 40px;" })
-                </div>
                 <div style="color: red;">
-                    @Html.ValidationMessageFor(model => model.UserID)
+                    @Html.EditorFor(model => model.Password, new
+                {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control input-sm",
+                       @style = "margin: 0px auto; min-width: 300px; height: 40px;",
+                            placeholder = @Html.DisplayNameFor(model => model.Password)
+                   }
+                })
+                </div>
+                <div class="text-center" style="color: red; margin: 0px auto;">
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+                <div class="text-center" style="color: red; margin: 0px auto;">
+                    @Html.DisplayFor(model => model.LoginErrorMessage)
                 </div>
                 <br />
                 <div class="form-group">
-                    <div class="col-sm-offset-5 col-md-12">
-                        <input type="submit" value="Login" class="btn btn-primary" />
-                        <input type="submit" value="Cancel" class="btn btn-primary" />
+                    <div id="login">
+                        <input type="submit" value="Log in" class="btn btn-primary" />
+                        <input type="reset" value="Cancel" class="btn btn-primary" />
                     </div>
-                </div>}
-        </div>
+                </div>
+            }
     </div>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-</body>
+</div>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

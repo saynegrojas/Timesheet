@@ -1,18 +1,25 @@
 ﻿@model Timesheet.Models.Sector
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"{Model.SectorName} Sector Details";
 }
 
-<h2>Details</h2>
+<h2> </h2>
 
 <div>
     <h4>Sector</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            Sector Name
+        </dt>
+
+        <dd>
+            @Html.ActionLink(Model.SectorName, "Edit", new { id = Model.SectionID }, new { datatoggle = "tooltip", title = $"Click to edit {Model.SectorName} sector" })
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SectorName }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

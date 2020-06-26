@@ -15,24 +15,23 @@ namespace Timesheet.Models
 
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.Schedules = new HashSet<Schedule>();
-        }
-    
-        [Required(ErrorMessage = "Invalid Password")]
-        [DataType(DataType.Password)]
-        public string UserID { get; set; }
+        public int UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [Required(ErrorMessage = "Invalid Email")]
+        [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string JobDescription { get; set; }
-    
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+        [Required(ErrorMessage = "Confirm Password")]
+        [DataType(DataType.Password)]
+        [Compare("Password")]
+        public string confirmPassword { get; set; }
+        public Nullable<int> JobRoleID { get; set; }
+        public string LoginErrorMessage { get; set; }
         public virtual Job_Role Job_Role { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Schedule> Schedules { get; set; }
+
     }
 }

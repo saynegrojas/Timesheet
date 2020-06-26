@@ -20,7 +20,7 @@ namespace Timesheet.Models
             this.Schedules = new HashSet<Schedule>();
         }
     
-        public string CodeID { get; set; }
+        public int CodeID { get; set; }
         public string CodeDescription { get; set; }
         public Nullable<decimal> CodeValue { get; set; }
     

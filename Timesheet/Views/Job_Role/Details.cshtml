@@ -1,13 +1,18 @@
 ﻿@model Timesheet.Models.Job_Role
 
-@{
-    ViewBag.Title = "Details";
-}
+@{ ViewBag.Title = "Details"; }
 
-<h2>Details</h2>
+<style>
+    .logout {
+        margin-top: 10px;
+    }
+</style>
+<p class="text-right logout">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
+<h2>Job Role Details</h2>
 
 <div>
-    <h4>Job_Role</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -21,6 +26,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.JobTitle }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.JobRoleID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

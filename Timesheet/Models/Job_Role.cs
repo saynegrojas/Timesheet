@@ -20,7 +20,7 @@ namespace Timesheet.Models
             this.Users = new HashSet<User>();
         }
     
-        public string JobTitle { get; set; }
+        public int JobRoleID { get; set; }
         public string JobDescription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,5 +1,9 @@
 ﻿@{
     ViewBag.Title = "Contact";
+    if (Session["email"] == null)
+    {
+        Response.Redirect("~/Home/login");
+    }
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>

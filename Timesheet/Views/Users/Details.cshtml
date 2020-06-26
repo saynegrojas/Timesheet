@@ -2,12 +2,17 @@
 
 @{
     ViewBag.Title = "Details";
+    if (Session["email"] == null)
+    {
+        Response.Redirect("~/Home/login");
+    }
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>User</h4>
+    <div>
+        <p class="text-right">
+            <a href="@Url.Action("Logout", "Home")">Log out</a>
+        </p>
+        <h2>User Details</h2>
+    </div>
     <hr />
     <dl class="dl-horizontal">
         <dt>

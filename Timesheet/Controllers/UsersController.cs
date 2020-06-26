@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,15 +16,31 @@ namespace Timesheet.Controllers
     {
         private TimesheetEntities db = new TimesheetEntities();
 
-        // GET: Users
         public ActionResult Index()
         {
+            //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["TimesheetEntities"].ConnectionString);
+            //SqlDataReader reader = null;
+            //con.Open();
+            //if((con.State & System.Data.ConnectionState.Open) > 0)
+            //{
+
+      
+            //SqlCommand cmd = new SqlCommand("Menu", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+
+            //cmd.Parameters.Add(new SqlParameter("@FilterId", "MenuLocation"));
+            //cmd.Parameters.Add(new SqlParameter("@Location", "TopBar"));
+
+            //reader = cmd.ExecuteReader();
+            //ViewBag.result = reader.ToString() + "working";
+
+            //}
             var users = db.Users.Include(u => u.Job_Role);
             return View(users.ToList());
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -39,7 +57,9 @@ namespace Timesheet.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobTitle", "JobDescription");
+            ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription");
+            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobRoleID", "JobDescription");
+
             return View();
         }
 
@@ -48,21 +68,24 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription")] User user)
+        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password,confirmPassword,JobRoleID")] User user)
         {
             if (ModelState.IsValid)
             {
+                //Hashing password 
+                user.Password = Crypto.Hash(user.Password);
+                //Hash confirm password
+                user.confirmPassword = Crypto.Hash(user.confirmPassword);
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobTitle", "JobDescription", user.JobDescription);
+            ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription", user.JobRoleID);
             return View(user);
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -73,7 +96,7 @@ namespace Timesheet.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobTitle", "JobDescription", user.JobDescription);
+            ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription", user.JobRoleID);
             return View(user);
         }
 
@@ -82,7 +105,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription")] User user)
+        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobRoleID, Password, confirmPassword")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -90,12 +113,12 @@ namespace Timesheet.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobTitle", "JobDescription", user.JobDescription);
+            ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription", user.JobRoleID);
             return View(user);
         }
 
         // GET: Users/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -112,7 +135,7 @@ namespace Timesheet.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);
             db.Users.Remove(user);
@@ -128,5 +151,6 @@ namespace Timesheet.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

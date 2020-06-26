@@ -21,7 +21,7 @@ namespace Timesheet.Controllers
         }
 
         // GET: Sectors/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -42,24 +42,36 @@ namespace Timesheet.Controllers
         }
 
         // POST: Sectors/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SectorName")] Sector sector)
+        public ActionResult Create([Bind(Include = "SectorName,SectionID")] Sector sector)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Sectors.Add(sector);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    if (!(String.IsNullOrEmpty(sector.SectorName) || db.chkSectorNameExist(sector.SectorName)))
+                    {
+                        db.Sectors.Add(sector);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                        ViewBag.ErrorValidation = String.IsNullOrEmpty(sector.SectorName) ? "You have not entered a value for Sector" : $"There already exist a Sector named \"{sector.SectorName}\"";
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorValidation = $"An error occured while creating this Sector \n{ex.Message}";
             }
 
             return View(sector);
         }
 
         // GET: Sectors/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -74,23 +86,45 @@ namespace Timesheet.Controllers
         }
 
         // POST: Sectors/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SectorName")] Sector sector)
+        public ActionResult Edit([Bind(Include = "SectorName,SectionID")] Sector sector, string oldSectorName)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(sector).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    using (var context = new TimesheetEntities())
+                    {
+                        Sector sec = context.Sectors.Find(sector.SectionID);
+                        if (sec != null)
+                        {
+                            if (!(String.IsNullOrEmpty(sector.SectorName) || (context.chkSectorNameExist(sector.SectorName) && sec.SectorName != sector.SectorName)))
+                            {
+                                db.Entry(sector).State = EntityState.Modified;
+                                db.SaveChanges();
+                                //db.updateSector(oldSectorName, sector.SectorName);
+                                return RedirectToAction("Index");
+                            }
+                            else
+                                ViewBag.ErrorValidation = String.IsNullOrEmpty(sector.SectorName) ? "You have not entered a value for Sector" : $"There already exist a Sector named \"{sector.SectorName}\"";
+                        }
+                        else
+                            ViewBag.ErrorValidation = $"This sector ID {sector.SectionID}could not be found in the database";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorValidation = $"An error occured during update {ViewBag.oldSectorName}. ({ex.Message})";
             }
             return View(sector);
         }
 
         // GET: Sectors/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -107,7 +141,7 @@ namespace Timesheet.Controllers
         // POST: Sectors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Sector sector = db.Sectors.Find(id);
             db.Sectors.Remove(sector);
