@@ -1,6 +1,10 @@
 ﻿@model Timesheet.Models.User
 @{
     ViewBag.Title = "Home Page";
+    if (Session["email"] == null)
+    {
+        Response.Redirect("~/Home/login");
+    }
 }
     <div class="jumbotron">
         <div>

@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -12,22 +16,27 @@
         <div class="container" style="height: 100px;">
             <div class="navbar-header">
                 @Html.ActionLink("TIMECARD", "Login", "Home",
-                              new { area = "" }, new { @class = "navbar-brand", @style = "line-height: 60px; font-size: 18px;" })
+                                   new { area = "" }, new { @class = "navbar-brand", @style = "line-height: 60px; font-size: 18px;" })
             </div>
         </div>
     </div>
 
     @*Side Menu*@
 
-<div class="container body-content">
-    <div class="d-flex" id="wrapper">
-        @RenderBody()
+    <div class="container body-content">
+        <div class="d-flex" id="wrapper">
+            @RenderBody()
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Team 7</p>
+        </footer>
     </div>
-    <hr />
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Team 7</p>
-    </footer>
-</div>
+    <script>
+        $(document).ready(function () {
+            $('[datatoggle="tooltip"]').tooltip();
+        });
+    </script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

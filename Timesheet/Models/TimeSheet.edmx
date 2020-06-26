@@ -4,7 +4,11 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
+<<<<<<< HEAD
     <Schema Namespace="TimeSheetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+=======
+    <Schema Namespace="TimesheetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
         <EntityType Name="Doctor">
           <Key>
             <PropertyRef Name="DoctorId" />
@@ -189,7 +193,11 @@
           <Parameter Name="OldSectorID" Type="int" Mode="In" />
           <Parameter Name="NewSectorName" Type="nvarchar" Mode="In" />
         </Function>
+<<<<<<< HEAD
         <EntityContainer Name="TimeSheetModelStoreContainer">
+=======
+        <EntityContainer Name="TimesheetModelStoreContainer">
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
           <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HourCode" EntityType="Self.HourCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Job_Role" EntityType="Self.Job_Role" Schema="dbo" store:Type="Tables" />
@@ -411,11 +419,19 @@
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
+<<<<<<< HEAD
           <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(TimeSheetModel.sp_helpdiagramdefinition_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(TimeSheetModel.sp_helpdiagrams_Result)">
+=======
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(TimesheetModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(TimesheetModel.sp_helpdiagrams_Result)">
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -523,6 +539,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+<<<<<<< HEAD
           <FunctionImportMapping FunctionImportName="chkLocationNameExist" FunctionName="TimeSheetModel.Store.chkLocationNameExist" />
           <FunctionImportMapping FunctionImportName="chkSectorNameExist" FunctionName="TimeSheetModel.Store.chkSectorNameExist" />
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="TimeSheetModel.Store.sp_alterdiagram" />
@@ -531,14 +548,30 @@
           <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="TimeSheetModel.Store.sp_helpdiagramdefinition">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TimeSheetModel.sp_helpdiagramdefinition_Result">
+=======
+          <FunctionImportMapping FunctionImportName="chkLocationNameExist" FunctionName="TimesheetModel.Store.chkLocationNameExist" />
+          <FunctionImportMapping FunctionImportName="chkSectorNameExist" FunctionName="TimesheetModel.Store.chkSectorNameExist" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="TimesheetModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="TimesheetModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="TimesheetModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="TimesheetModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TimesheetModel.sp_helpdiagramdefinition_Result">
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+<<<<<<< HEAD
           <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="TimeSheetModel.Store.sp_helpdiagrams">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TimeSheetModel.sp_helpdiagrams_Result">
+=======
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="TimesheetModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TimesheetModel.sp_helpdiagrams_Result">
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
                 <ScalarProperty Name="Database" ColumnName="Database" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -547,9 +580,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+<<<<<<< HEAD
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="TimeSheetModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="TimeSheetModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="updateSector" FunctionName="TimeSheetModel.Store.updateSector" />
+=======
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="TimesheetModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="TimesheetModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="updateSector" FunctionName="TimesheetModel.Store.updateSector" />
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

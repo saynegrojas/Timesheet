@@ -18,50 +18,19 @@ namespace Timesheet.Controllers
         private TimeSheetEntities db = new TimeSheetEntities();
 
         // GET: Schedules
-        public ActionResult Index(string searchBy, string search, int? page, string sortBy)
+        public ActionResult Index(string searchBy, string search, int? page)
         {
-            ViewBag.SortNameParameter = string.IsNullOrEmpty(sortBy) ? "Name asc" : "";
-            ViewBag.SortFileNumberParameter = string.IsNullOrEmpty(sortBy) ? "FileNumber" : "";
-
-            var schedules = db.Schedules.Include(s => s.Doctor).Include(s => s.HourCode).AsQueryable();
-
             if (searchBy == "FileNumber")
             {
                 int id = Convert.ToInt32(search);
-                schedules = schedules.Where(x => x.Doctor.FileNumber == id || search == null);
-                //return View(schedules.ToList().ToPagedList(page ?? 1, 5));
+                var schedules = db.Schedules.Include(s => s.Doctor).Include(s => s.HourCode).Where(x => x.Doctor.FileNumber == id || search == null);
+                return View(schedules.ToList().ToPagedList(page ?? 1, 5));
             }
-<<<<<<< HEAD
             else
             {
-                schedules = schedules.Where(x => x.Doctor.FirstName.StartsWith(search) || search == null);
-                //return View(schedules.ToList().ToPagedList(page ?? 1, 5));
+                var schedules = db.Schedules.Include(s => s.Doctor).Include(s => s.HourCode).Where(x => x.Doctor.FirstName.StartsWith(search) || search == null);
+                return View(schedules.ToList().ToList().ToPagedList(page ?? 1, 5));
             }
-=======
-            else 
-            {
-                schedules = schedules.Where(x => x.Doctor.FirstName.StartsWith(search) || search == null);
-                //return View(schedules.ToList().ToPagedList(page ?? 1, 5));
-            } 
->>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
-
-            switch (sortBy)
-            {
-                case "Name asc":
-                    schedules = schedules.OrderBy(x => x.Doctor.FirstName);
-                    break;
-                case "FileNumber":
-                    schedules = schedules.OrderBy(x => x.Doctor.FileNumber);
-                    break;
-            }
-<<<<<<< HEAD
-            
-=======
-
->>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
-
-            return View(schedules.ToList().ToPagedList(page ?? 1, 5));
-
 
         }
 
@@ -83,11 +52,7 @@ namespace Timesheet.Controllers
         // GET: Schedules/Create
         public ActionResult Create(int id)
         {
-<<<<<<< HEAD
             Doctor dr = db.Doctors.Single(emp => emp.FileNumber == id);
-=======
-            Doctor dr = db.Doctors.Single(emp => emp.DoctorId == id);
->>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
             TempData["DoctorID"] = dr.DoctorId;
             ViewBag.dr = dr;
             ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName");
@@ -104,11 +69,7 @@ namespace Timesheet.Controllers
         public ActionResult Create([Bind(Include = "LocationID,Time_In,Time_Out,HourCodeId")] Schedule schedule, FormCollection data)
         {
             int hi = Convert.ToInt32(data["HourCodeId"]);
-<<<<<<< HEAD
-            HourCode hr = db.HourCodes.Single(emp => emp.CodeID == hi); 
-=======
             HourCode hr = db.HourCodes.Single(emp => emp.CodeID == hi);
->>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
             schedule.DoctorID = Convert.ToInt32(TempData["DoctorID"]);
             schedule.Amount = hr.CodeValue;
             if (ModelState.IsValid)

@@ -15,10 +15,17 @@ namespace Timesheet.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
+<<<<<<< HEAD
     public partial class TimeSheetEntities : DbContext
     {
         public TimeSheetEntities()
             : base("name=TimeSheetEntities")
+=======
+    public partial class TimesheetEntities : DbContext
+    {
+        public TimesheetEntities()
+            : base("name=TimesheetEntities")
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
         {
         }
     
@@ -33,28 +40,53 @@ namespace Timesheet.Models
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Sector> Sectors { get; set; }
+<<<<<<< HEAD
         public virtual DbSet<User> Users { get; set; }
     
         [DbFunction("TimeSheetEntities", "chkLocationNameExist")]
         public virtual IQueryable<Nullable<int>> chkLocationNameExist(string locationName)
+=======
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+    
+     
+        [DbFunction("TimesheetEntities", "chkLocationNameExist")]
+        public virtual bool chkLocationNameExist(string locationName)
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
         {
             var locationNameParameter = locationName != null ?
                 new ObjectParameter("locationName", locationName) :
                 new ObjectParameter("locationName", typeof(string));
+<<<<<<< HEAD
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Nullable<int>>("[TimeSheetEntities].[chkLocationNameExist](@locationName)", locationNameParameter);
         }
     
         [DbFunction("TimeSheetEntities", "chkSectorNameExist")]
         public virtual IQueryable<Nullable<int>> chkSectorNameExist(string sectorName)
+=======
+
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Nullable<int>>("[TimesheetEntities].[chkLocationNameExist](@locationName)", locationNameParameter).First() > 0 ? true : false;
+        }
+
+        [DbFunction("TimesheetEntities", "chkSectorNameExist")]
+        public virtual bool chkSectorNameExist(string sectorName)
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
         {
             var sectorNameParameter = sectorName != null ?
                 new ObjectParameter("sectorName", sectorName) :
                 new ObjectParameter("sectorName", typeof(string));
+<<<<<<< HEAD
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Nullable<int>>("[TimeSheetEntities].[chkSectorNameExist](@sectorName)", sectorNameParameter);
         }
     
+=======
+
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Nullable<int>>("[TimesheetEntities].[chkSectorNameExist](@sectorName)", sectorNameParameter).First() > 0 ? true : false;
+        }
+
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
             var diagramnameParameter = diagramname != null ?

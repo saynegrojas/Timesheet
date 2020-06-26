@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,9 +16,25 @@ namespace Timesheet.Controllers
     {
         private TimeSheetEntities db = new TimeSheetEntities();
 
-        // GET: Users
         public ActionResult Index()
         {
+            //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["TimesheetEntities"].ConnectionString);
+            //SqlDataReader reader = null;
+            //con.Open();
+            //if((con.State & System.Data.ConnectionState.Open) > 0)
+            //{
+
+      
+            //SqlCommand cmd = new SqlCommand("Menu", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+
+            //cmd.Parameters.Add(new SqlParameter("@FilterId", "MenuLocation"));
+            //cmd.Parameters.Add(new SqlParameter("@Location", "TopBar"));
+
+            //reader = cmd.ExecuteReader();
+            //ViewBag.result = reader.ToString() + "working";
+
+            //}
             var users = db.Users.Include(u => u.Job_Role);
             return View(users.ToList());
         }
@@ -40,6 +58,8 @@ namespace Timesheet.Controllers
         public ActionResult Create()
         {
             ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription");
+            ViewBag.JobDescription = new SelectList(db.Job_Role, "JobRoleID", "JobDescription");
+
             return View();
         }
 
@@ -48,17 +68,22 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password,JobRoleID")] User user)
+        public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password,confirmPassword,JobRoleID")] User user)
         {
             if (ModelState.IsValid)
             {
                 //Hashing password 
+<<<<<<< HEAD
                 //user.Password = Crypto.Hash(user.Password);
+=======
+                user.Password = Crypto.Hash(user.Password);
+                //Hash confirm password
+                user.confirmPassword = Crypto.Hash(user.confirmPassword);
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription", user.JobRoleID);
             return View(user);
         }
@@ -84,7 +109,7 @@ namespace Timesheet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password,JobRoleID")] User user)
+        public ActionResult Edit([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobRoleID, Password, confirmPassword")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -130,5 +155,6 @@ namespace Timesheet.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

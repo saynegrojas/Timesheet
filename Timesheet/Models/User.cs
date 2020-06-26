@@ -17,11 +17,29 @@ namespace Timesheet.Models
         public int UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+<<<<<<< HEAD
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Password { get; set; }
         public Nullable<int> JobRoleID { get; set; }
     
         public virtual Job_Role Job_Role { get; set; }
+=======
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+        [Required(ErrorMessage = "Confirm Password")]
+        [DataType(DataType.Password)]
+        [Compare("Password")]
+        public string confirmPassword { get; set; }
+        public Nullable<int> JobRoleID { get; set; }
+        public string LoginErrorMessage { get; set; }
+        public virtual Job_Role Job_Role { get; set; }
+
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
     }
 }

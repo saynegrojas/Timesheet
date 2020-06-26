@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,7 +11,6 @@ namespace Timesheet.Controllers
 {
     public class HomeController : Controller
     {
-        
         public ActionResult Index()
         {
             return View();
@@ -40,13 +40,17 @@ namespace Timesheet.Controllers
         {
             using (TimeSheetEntities db = new TimeSheetEntities())
             {
-                //FOR TESTING: INPUT IN USER TABLE - email: user@user.com pw: user jobDes: IT
                 var userValues = db.Users.Where(x => x.Email == user.Email && x.Password == user.Password).FirstOrDefault();
 
                 if (userValues == null)
                 {
                     //Error message for incorrect email or password
+<<<<<<< HEAD
                     //user.LoginErrorMessage = "The Email or Password field is invalid.";
+=======
+                    user.LoginErrorMessage = "The Email or Password field is invalid.";
+                    //user.Password = Convert.ToString(Crypto.Decode(user.Password));
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
                     return View("Login", user);
                 }
                 else

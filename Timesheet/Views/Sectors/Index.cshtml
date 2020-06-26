@@ -4,12 +4,24 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("User", "Index", "Users")</li>
+        <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
+        <li>@Html.ActionLink("Locations", "Index", "Locations")</li>
+        <li>@Html.ActionLink("Job Roles", "Index", "Job_Role")</li>
+        <li>@Html.ActionLink("Sectors", "Index", "Sectors")</li>
+        <li>@Html.ActionLink("Hour Code", "Index", "HourCodes")</li>
+    </ul>
+</div>
+<p class="text-right">
+    <a href="@Url.Action("Logout", "Home")">Log out</a>
+</p>
+<h2>Sector</h2>
+<p class="text-right">
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.SectorName)
@@ -17,17 +29,18 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SectorName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SectionID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SectionID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SectionID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.SectorName, "Details", new { id = item.SectionID }, new { datatoggle = "tooltip", title = $"Click for details" })
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SectionID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SectionID })
+            </td>
+        </tr>
+    }
 
 </table>
+

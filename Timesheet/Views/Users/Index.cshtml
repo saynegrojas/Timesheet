@@ -26,13 +26,13 @@
         <p class="text-right">
             @Html.ActionLink("Add User", "Create")
         </p>
-        <table class="table">
+        <table class="table table-striped table-hover">
             <tr>
                 <th>
                     @Html.DisplayName("Name")
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Job_Role.JobDescription)
+                    @Html.DisplayName("Job Description")
                 </th>
                 <th></th>
             </tr>
@@ -42,7 +42,9 @@
                 var concat = item.FirstName + " " + item.LastName;
                 <tr>
                     <td>
-                        @Html.ActionLink(concat, "Details", new { id = item.UserID })
+                        @Html.ActionLink(concat, "Details", new { id = item.UserID }, new { datatoggle = "tooltip", title = $"Click for details"})
+                        @*@Html.ActionLink(concat, "Details", new { id = item.UserID }, new { datatoggle = "tooltip", title = $"Click for details" })*@
+
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Job_Role.JobDescription)

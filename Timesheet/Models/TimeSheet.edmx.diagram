@@ -4,6 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+<<<<<<< HEAD
       <Diagram DiagramId="8c6f78b9a74c43f6b2847b3822482284" Name="Diagram1">
         <EntityTypeShape EntityType="TimeSheetModel.Doctor" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="TimeSheetModel.HourCode" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
@@ -17,6 +18,22 @@
         <AssociationConnector Association="TimeSheetModel.FK_Schedule_HourCode" ManuallyRouted="false" />
         <AssociationConnector Association="TimeSheetModel.FK_User_Job_Role" ManuallyRouted="false" />
         <AssociationConnector Association="TimeSheetModel.FK_Location_Sector" ManuallyRouted="false" />
+=======
+      <Diagram DiagramId="a00780a9c68a47c8aab792959bd0f87d" Name="Diagram1">
+        <EntityTypeShape EntityType="TimesheetModel.Doctor" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimesheetModel.HourCode" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimesheetModel.Job_Role" Width="1.5" PointX="7.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimesheetModel.Location" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimesheetModel.Schedule" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimesheetModel.Sector" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimesheetModel.sysdiagram" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimesheetModel.User" Width="1.5" PointX="10" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="TimesheetModel.FK_Doctor_Location" ManuallyRouted="false" />
+        <AssociationConnector Association="TimesheetModel.FK_Schedule_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="TimesheetModel.FK_Schedule_HourCode" ManuallyRouted="false" />
+        <AssociationConnector Association="TimesheetModel.FK_User_Job_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="TimesheetModel.FK_Location_Sector" ManuallyRouted="false" />
+>>>>>>> c5ac97e390aff9b7e69a0fd268eff545da2701fe
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
