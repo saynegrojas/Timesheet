@@ -4,16 +4,9 @@
     ViewBag.Title = $"Edit {Model.SectorName} Sector";
 
 }
-<style>
-    .logout {
-        margin-top: 50px;
-    }
-</style>
-    <div>
-        <p class="text-right logout">
-            <a href="@Url.Action("Logout", "Home")">Log out</a>
-        </p>
-    </div>
+
+@Html.Partial("_PartialLogout")
+
 <h2>Edit <b>@Model.SectorName</b> Sector</h2>
 
 

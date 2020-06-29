@@ -1,23 +1,9 @@
 ﻿@model IEnumerable<Timesheet.Models.Sector>
 
-@{
-    ViewBag.Title = "Index";
-}
+@{ ViewBag.Title = "Index"; }
 
-<div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("User", "Index", "Users")</li>
-        <li>@Html.ActionLink("TimeCard", "Index", "Doctors")</li>
+@Html.Partial("_PartialNavbar");
 
-        <li>@Html.ActionLink("Reports", "Index", "Schedules")</li>
-
-        @*<li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
-        <li>@Html.ActionLink("Locations", "Index", "Locations")</li>*@
-        <li>@Html.ActionLink("Job Roles", "Index", "Job_Role")</li>
-        <li>@Html.ActionLink("Sectors", "Index", "Sectors")</li>
-        <li>@Html.ActionLink("Hour Code", "Index", "HourCodes")</li>
-    </ul>
-</div>
 <p class="text-right">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
@@ -35,16 +21,15 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.ActionLink(item.SectorName, "Details", new { id = item.SectionID }, new { datatoggle = "tooltip", title = $"Click for details" })
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.SectionID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.SectionID })
-            </td>
-        </tr>
-    }
+<tr>
+    <td>
+        @Html.ActionLink(item.SectorName, "Details", new { id = item.SectionID }, new { datatoggle = "tooltip", title = $"Click for details" })
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.SectionID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.SectionID })
+    </td>
+</tr>}
 
 </table>
 

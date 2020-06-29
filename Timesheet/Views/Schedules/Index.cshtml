@@ -3,16 +3,8 @@
 @model IPagedList<Timesheet.Models.Schedule>
 
 @{ ViewBag.Title = "Index"; }
-<div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("User", "Index", "Users")</li>
-        <li>@Html.ActionLink("TimeCard", "Index", "Doctors")</li>
-        <li>@Html.ActionLink("Reports", "Index", "Schedules")</li>
-        <li>@Html.ActionLink("Job Roles", "Index", "Job_Role")</li>
-        <li>@Html.ActionLink("Sectors", "Index", "Sectors")</li>
-        <li>@Html.ActionLink("Hour Code", "Index", "HourCodes")</li>
-    </ul>
-</div>
+@Html.Partial("_PartialNavbar");
+
 <div>
     <p class="text-right">
         <a href="@Url.Action("Logout", "Home")">Log out</a>
@@ -107,11 +99,12 @@
     {
 <tr>
     <td colspan="8">No record was found</td>
-</tr> }
-            else
-            {
-                foreach (var item in Model)
-                {
+</tr>
+ }
+else
+{
+foreach (var item in Model)
+{
 <tr>
     <td>
         @Html.ActionLink(item.Doctor.FirstName, "Details", new { id = item.ScheduleID }, new { datatoggle = "tooltip", title = $"Click for {item.Doctor.FirstName}'s details" })
@@ -140,12 +133,13 @@
         @*@Html.ActionLink("Details", "Details", new { id = item.ScheduleID }) |*@
         @Html.ActionLink("Delete", "Delete", new { id = item.ScheduleID })
     </td>
-</tr>}
-            }
+</tr>
+}
+}
 
 </table>
 <div>
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }),
-        new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
 </div>
 

@@ -17,7 +17,7 @@ namespace Timesheet.Controllers
         private TimesheetEntities db = new TimesheetEntities();
 
         public ActionResult Index()
-        {
+        { 
             var users = db.Users.Include(u => u.Job_Role);
             return View(users.ToList());
         }
@@ -56,9 +56,9 @@ namespace Timesheet.Controllers
             if (ModelState.IsValid)
             {
                 //Hashing password 
-                user.Password = Crypto.Hash(user.Password);
+                //user.Password = Crypto.Hash(user.Password);
                 //Hash confirm password
-                user.confirmPassword = Crypto.Hash(user.confirmPassword);
+                //user.confirmPassword = Crypto.Hash(user.confirmPassword);
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -1,21 +1,8 @@
 ﻿@model IEnumerable<Timesheet.Models.HourCode>
 
-@{
-    ViewBag.Title = "Index";
-}
+@{ ViewBag.Title = "Index"; }
+@Html.Partial("_PartialNavbar");
 
-<div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("User", "Index", "Users")</li>
-        <li>@Html.ActionLink("TimeCard", "Index", "Doctors")</li>
-        <li>@Html.ActionLink("Reports", "Index", "Schedules")</li>
-        @*<li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
-        <li>@Html.ActionLink("Locations", "Index", "Locations")</li>*@
-        <li>@Html.ActionLink("Job Roles", "Index", "Job_Role")</li>
-        <li>@Html.ActionLink("Sectors", "Index", "Sectors")</li>
-        <li>@Html.ActionLink("Hour Code", "Index", "HourCodes")</li>
-    </ul>
-</div>
 <p class="text-right">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
@@ -36,19 +23,18 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.ActionLink(item.CodeDescription, "Details", new { id = item.CodeID }, new { datatoggle = "tooltip", title = $"Click for details" })
+<tr>
+    <td>
+        @Html.ActionLink(item.CodeDescription, "Details", new { id = item.CodeID }, new { datatoggle = "tooltip", title = $"Click for details" })
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodeValue)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CodeID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CodeID })
-            </td>
-        </tr>
-    }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CodeValue)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.CodeID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.CodeID })
+    </td>
+</tr>}
 
 </table>

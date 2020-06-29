@@ -2,19 +2,12 @@
 
 @{ ViewBag.Title = $"{Model.Doctor.LastName} Details"; }
 
-<style>
-    .logout {
-        margin-top: 50px;
-    }
-</style>
-<p class="text-right logout">
-    <a href="@Url.Action("Logout", "Home")">Log out</a>
-</p>
+@Html.Partial("_PartialLogout")
 <h2>Dr. <b>@Model.Doctor.LastName's Schedule </b> Details</h2>
 
 <div>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal well">
         <dt>
             @Html.DisplayName("Location")
         </dt>

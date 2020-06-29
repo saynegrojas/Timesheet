@@ -2,18 +2,12 @@
 
 @{ ViewBag.Title = $" Delete {Model.JobDescription}"; }
 
-<style>
-    .logout {
-        margin-top: 50px;
-    }
-</style>
-<p class="text-right logout">
-    <a href="@Url.Action("Logout", "Home")">Log out</a>
-</p>
+@Html.Partial("_PartialLogout")
+
 <h2>Are you sure you want to delete <b>@Model.JobDescription</b>?</h2>
 <div>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal well">
         <dt>
             @Html.DisplayNameFor(model => model.JobDescription)
         </dt>

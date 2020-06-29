@@ -2,19 +2,13 @@
 
 @{ ViewBag.Title = $" Delete {Model.SectorName}"; }
 
-<style>
-    .logout {
-        margin-top: 50px;
-    }
-</style>
-<p class="text-right logout">
-    <a href="@Url.Action("Logout", "Home")">Log out</a>
-</p>
+@Html.Partial("_PartialLogout")
+
 <h2>Are you sure you want to delete <b>@Model.SectorName</b> sector?</h2>
 
 <div>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal well">
         <dt>
             Sector Name
         </dt>

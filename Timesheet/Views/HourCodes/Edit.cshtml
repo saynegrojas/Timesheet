@@ -4,15 +4,9 @@
     ViewBag.Title = $"Edit {Model.CodeDescription}";
 }
 
-<style>
-    .logout {
-        margin-top: 50px;
-    }
-</style>
-<p class="text-right logout">
-    <a href="@Url.Action("Logout", "Home")">Log out</a>
-</p>
-    <h2>Edit <b>@Model.CodeDescription</b></h2>
+@Html.Partial("_PartialLogout")
+
+<h2>Edit <b>@Model.CodeDescription</b></h2>
 
 @using (Html.BeginForm())
 {

@@ -1,19 +1,9 @@
 ﻿@model IEnumerable<Timesheet.Models.Job_Role>
 
 @{ ViewBag.Title = "Index"; }
-<div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("User", "Index", "Users")</li>
-        <li>@Html.ActionLink("TimeCard", "Index", "Doctors")</li>
-        <li>@Html.ActionLink("Reports", "Index", "Schedules")</li>
+@Html.Partial("_PartialNavbar");
 
-        @*<li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
-        <li>@Html.ActionLink("Locations", "Index", "Locations")</li>*@
-        <li>@Html.ActionLink("Job Roles", "Index", "Job_Role")</li>
-        <li>@Html.ActionLink("Sectors", "Index", "Sectors")</li>
-        <li>@Html.ActionLink("Hour Code", "Index", "HourCodes")</li>
-    </ul>
-</div>
+
 <p class="text-right">
     <a href="@Url.Action("Logout", "Home")">Log out</a>
 </p>
@@ -40,7 +30,6 @@
         @Html.ActionLink("Edit", "Edit", new { id = item.JobRoleID }) |
         @Html.ActionLink("Delete", "Delete", new { id = item.JobRoleID })
     </td>
-</tr>
-}
+</tr>}
 
 </table>
