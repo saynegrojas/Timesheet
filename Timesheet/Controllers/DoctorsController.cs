@@ -56,11 +56,33 @@ namespace Timesheet.Models
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "FirstName,LastName,Phone,Email,LocationID,Sex, Address")] Doctor doctor)
         {
+            bool errorFlag = false;
+            if(String.IsNullOrEmpty(doctor.Email) || db.Doctors.ToList().Any(s => s.Email == doctor.Email))
+            {
+                ViewBag.ValidateEmail = String.IsNullOrEmpty(doctor.Email) ? "Email field is required" : $"There already exist an email: \"{doctor.Email}\"";
+                errorFlag = true;
+            }
+            if(String.IsNullOrEmpty(doctor.FirstName))
+            {
+                ViewBag.ValidateFirstName = "First name field is required";
+                errorFlag = true;
+            }
+            if(String.IsNullOrEmpty(doctor.LastName))
+            {
+                ViewBag.ValidateLastName = "Last name field is required";
+                errorFlag = true;
+            }
+
             if (ModelState.IsValid)
             {
-                db.Doctors.Add(doctor);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(!errorFlag)
+                {
+                    //db.Doctors.Add(doctor);
+                    db.Doctors.Add(doctor);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
             }
             ViewBag.Sex = new SelectList(genderList, "GenderName", "GenderName", doctor.Sex);
             ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName", doctor.LocationID);
@@ -90,11 +112,30 @@ namespace Timesheet.Models
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "FirstName,LastName,Sex,Phone,Email,DoctorId,LocationID,Address")] Doctor doctor)
         {
+            bool errorFlag = false;
+            if(String.IsNullOrEmpty(doctor.Email))
+            {
+                ViewBag.ValidateEmail = "Email address field is required";
+            }
+            if(String.IsNullOrEmpty(doctor.FirstName))
+            {
+                ViewBag.ValidateFirstName = "First name field is required";
+                errorFlag = true;
+            }
+            if(String.IsNullOrEmpty(doctor.LastName))
+            {
+                ViewBag.ValidateLastName = "Last name field is required";
+                errorFlag = true;
+            }
+
             if (ModelState.IsValid)
             {
-                db.Entry(doctor).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(!errorFlag)
+                {
+                    db.Entry(doctor).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "LocationName", doctor.LocationID);
             return View(doctor);

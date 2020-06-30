@@ -4,15 +4,8 @@
     ViewBag.Title = "Create";
 }
 
-<style>
-    .logout {
-        margin-top: 10px;
-    }
-</style>
-<p class="text-right logout">
-    <a href="@Url.Action("Logout", "Home")">Log out</a>
-</p>
-<h2>Create Job Role</h2>
+@Html.Partial("_PartialLogout")
+<h2>Create new Job Role</h2>
 
 @using (Html.BeginForm()) 
 {

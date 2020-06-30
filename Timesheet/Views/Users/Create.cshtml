@@ -7,10 +7,12 @@
         Response.Redirect("~/Home/login");
     }
 }
-        <div>
-            <p class="text-right">
-                <a href="@Url.Action("Logout", "Home")">Log out</a>
-            </p>
+@Html.Partial("_PartialLogout")
+<style>
+    .error-message {
+        color: red;
+    }
+</style>
             <h2>Create New User</h2>
             @using (Html.BeginForm())
             {
@@ -23,7 +25,8 @@
                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.FirstName, ViewBag.ValidateFirstName as string, new { @class = "text-danger error-message" })
                 </div>
             </div>
 
@@ -31,7 +34,8 @@
                 @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.LastName, ViewBag.ValidateLastName as string, new { @class = "text-danger error-message" })
                 </div>
             </div>
 
@@ -39,7 +43,7 @@
                 @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Email, ViewBag.ValidateEmail as string, new { @class = "text-danger error-message" })
                 </div>
             </div>
 
@@ -80,9 +84,7 @@
                 </div>
             </div>
         </div>
-            }
-
-        </div>
+}
         <div>
             @Html.ActionLink("Back to List", "Index")
         </div>

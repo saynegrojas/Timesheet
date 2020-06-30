@@ -53,15 +53,38 @@ namespace Timesheet.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserID,FirstName,LastName,Email,Phone,JobDescription,Password,confirmPassword,JobRoleID")] User user)
         {
+            bool errorFlag = false;
+            if(String.IsNullOrEmpty(user.Email) || db.Users.ToList().Any(s => s.Email == user.Email))
+            {
+                ViewBag.ValidateEmail = String.IsNullOrEmpty(user.Email) ? "Email field is required": $"There already exists an email: \"{ user.Email}\"";
+                errorFlag = true;
+            }
+            if (String.IsNullOrEmpty(user.FirstName))
+            {
+                ViewBag.ValidateFirstName = "First name field is required";
+                errorFlag = true;
+            }
+            if (String.IsNullOrEmpty(user.LastName))
+            {
+                ViewBag.ValidateLastName = "Last name field is required";
+                errorFlag = true;
+            }
+
+
             if (ModelState.IsValid)
             {
-                //Hashing password 
-                //user.Password = Crypto.Hash(user.Password);
-                //Hash confirm password
-                //user.confirmPassword = Crypto.Hash(user.confirmPassword);
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(!errorFlag)
+                {
+                    //Hashing password 
+                    //user.Password = Crypto.Hash(user.Password);
+                    //Hash confirm password
+                    //user.confirmPassword = Crypto.Hash(user.confirmPassword);
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
+                }
+
             }
             ViewBag.JobRoleID = new SelectList(db.Job_Role, "JobRoleID", "JobDescription", user.JobRoleID);
             return View(user);
