@@ -13,7 +13,7 @@
 <table class="table table-striped table-hover">
     <tr> 
         <th>
-            @Html.DisplayName("Doctor ID")
+            @Html.DisplayName("Doctor Email")
         </th>
         <th>
             @Html.DisplayName("First Name")
@@ -28,7 +28,7 @@
     {
 <tr>
     <td>
-        @Html.ActionLink(Convert.ToString(item.DoctorId), "Create", "Schedules", new { id = item.DoctorId }, new { datatoggle = "tooltip", title = $"Click to schedule {item.FirstName} {item.LastName}" })
+        @Html.ActionLink(Convert.ToString(item.Email), "Create", "Schedules", new { id = item.DoctorId }, new { datatoggle = "tooltip", title = $"Click to schedule {item.FirstName} {item.LastName}" })
         @*@Html.ActionLink(location, "Edit", new { id = item.LocationID }, new { datatoggle = "tooltip", title = $"Click to select {item.LocationName} location" })*@
 
     </td>

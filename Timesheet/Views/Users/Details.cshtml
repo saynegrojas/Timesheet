@@ -16,7 +16,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.ActionLink(Model.FirstName, "Edit", new { id = Model.UserID }, new { datatoggle = "tooltip", title = $"Click to edit {Model.FirstName}" })
+
         </dd>
 
         <dt>
@@ -54,6 +55,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserID }) |
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.UserID }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>

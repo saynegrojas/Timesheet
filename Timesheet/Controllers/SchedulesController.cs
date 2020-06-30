@@ -10,6 +10,8 @@ using System.Web;
 using System.Web.Mvc;
 using Timesheet.Models;
 using PagedList.Mvc;
+using System.Net.Mail;
+using System.Text;
 
 namespace Timesheet.Controllers
 {
@@ -177,5 +179,43 @@ namespace Timesheet.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //Send Email
+       //public JsonResult SendMailToDoctor()
+       // {
+       //     //Doctor dr = db.Doctors.Single(emp => emp.DoctorId == id);
+
+       //     bool result = false;
+       //     result = SendEmail("Saynegrojas@gmail.com", "Scheduled date", "<p>Scheduled</p>");
+       //     return Json(result, JsonRequestBehavior.AllowGet);
+       // }
+        
+       // public bool SendEmail(string toEmail, string subject, string body)
+       // {
+
+       //     try
+       //     {
+       //         string senderEmail = System.Configuration.ConfigurationManager.AppSettings["SenderEmail"].ToString();
+       //         string senderPassword = System.Configuration.ConfigurationManager.AppSettings["SenderPassword"].ToString();
+
+       //         SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+       //         client.EnableSsl = true;
+       //         client.Timeout = 100000;
+       //         client.DeliveryMethod = SmtpDeliveryMethod.Network;
+       //         client.UseDefaultCredentials = false;
+       //         client.Credentials = new NetworkCredential(senderEmail, senderPassword);
+
+       //         MailMessage mail = new MailMessage(senderEmail, toEmail, subject, body);
+       //         mail.IsBodyHtml = true;
+       //         mail.BodyEncoding = UTF8Encoding.UTF8;
+
+       //         client.Send(mail);
+
+       //         return true;
+       //     } catch (Exception e)
+       //     {
+       //         return false;
+       //     }
+       // } 
     }
 }

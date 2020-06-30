@@ -72,13 +72,26 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Create" class="btn btn-default"/>
         </div>
     </div>
 </div>
 }
 
+
 @*<div>
     @Html.ActionLink("Back to List", "Index")
 </div>*@
 <a href="javascript: history.go(-1)">Back to List</a>
+
+@*<script>
+    var sendEmail = function () {
+        $.ajax({
+            type: "Post",
+            url: "/Schedule/SendMailToDoctor",
+            success: function (data) {
+                alert("Sent")
+            }
+        })
+    }
+</script>*@

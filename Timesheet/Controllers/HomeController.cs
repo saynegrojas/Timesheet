@@ -41,14 +41,14 @@ namespace Timesheet.Controllers
             using (TimesheetEntities db = new TimesheetEntities())
             {
                 var userValues = db.Users.Where(x => x.Email == user.Email && x.Password == user.Password).FirstOrDefault();
-
+                //var jobRole = db.Job_Role.Where(x => x.JobDescription == "Admin").FirstOrDefault();
                 if (userValues == null)
                 {
                     //Error message for incorrect email or password
                     user.LoginErrorMessage = "The Email or Password field is invalid.";
                     //user.Password = Convert.ToString(Crypto.Decode(user.Password));
                     return View("Login", user);
-                }
+                }  
                 else
                 {
                     //if no action within a time frame, session will redirect to /home/login(condition in view) not users/index
