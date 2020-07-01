@@ -16,10 +16,10 @@ namespace Timesheet.Controllers
     {
         private TimesheetEntities db = new TimesheetEntities();
 
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         { 
             var users = db.Users.Include(u => u.Job_Role);
-            return View(users.ToList());
+            return View(db.Users.Where(x => x.FirstName.Contains(searchString) || searchString == null).ToList());
         }
 
         // GET: Users/Details/5

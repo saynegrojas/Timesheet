@@ -13,7 +13,7 @@
         </dt>
 
         <dd>
-            @Html.ActionLink(Model.Doctor.Location.LocationName, "Edit", new { id = Model.LocationID }, new { datatoggle = "tooltip", title = $"Click to edit {Model.Doctor.Location.LocationName} " })
+            @Html.DisplayFor(model => model.Doctor.Location.LocationName)
 
         </dd>
         <dt>

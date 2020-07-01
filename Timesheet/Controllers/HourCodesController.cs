@@ -15,9 +15,9 @@ namespace Timesheet.Controllers
         private TimesheetEntities db = new TimesheetEntities();
 
         // GET: HourCodes
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.HourCodes.ToList());
+            return View(db.HourCodes.Where(x => x.CodeDescription.Contains(searchString) || searchString == null).ToList());
         }
 
         // GET: HourCodes/Details/5
@@ -48,11 +48,25 @@ namespace Timesheet.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CodeID,CodeDescription,CodeValue")] HourCode hourCode)
         {
+            bool errorFlag = false;
+            if(String.IsNullOrEmpty(hourCode.CodeDescription) || db.HourCodes.ToList().Any(s => s.CodeDescription == hourCode.CodeDescription))
+            {
+                ViewBag.ValidateHourCode = String.IsNullOrEmpty(hourCode.CodeDescription) ? "Code description field is required" : $"\"There already exists code description: {hourCode.CodeDescription}\"";
+                errorFlag = true;
+            }
+            if(String.IsNullOrEmpty(hourCode.CodeValue.ToString()))
+            {
+                ViewBag.ValidateCodeValue = "Code value field is required";
+                errorFlag = true;
+            }
             if (ModelState.IsValid)
             {
+                if(!errorFlag)
+                {
                 db.HourCodes.Add(hourCode);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                }
             }
 
             return View(hourCode);
@@ -80,11 +94,25 @@ namespace Timesheet.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CodeID,CodeDescription,CodeValue")] HourCode hourCode)
         {
+            bool errorFlag = false;
+            if (String.IsNullOrEmpty(hourCode.CodeDescription))
+            {
+                ViewBag.ValidateHourCode = "Code description field is required";
+                errorFlag = true;
+            }
+            if (String.IsNullOrEmpty(hourCode.CodeValue.ToString()))
+            {
+                ViewBag.ValidateCodeValue = "Code value field is required";
+                errorFlag = true;
+            }
             if (ModelState.IsValid)
             {
-                db.Entry(hourCode).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(!errorFlag)
+                {
+                    db.Entry(hourCode).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             return View(hourCode);
         }

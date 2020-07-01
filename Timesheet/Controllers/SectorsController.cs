@@ -15,9 +15,9 @@ namespace Timesheet.Controllers
         private TimesheetEntities db = new TimesheetEntities();
 
         // GET: Sectors
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.Sectors.ToList());
+            return View(db.Sectors.Where(x => x.SectorName.Contains(searchString) || searchString == null).ToList());
         }
 
         // GET: Sectors/Details/5
@@ -112,7 +112,7 @@ namespace Timesheet.Controllers
                                 ViewBag.ErrorValidation = String.IsNullOrEmpty(sector.SectorName) ? "You have not entered a value for Sector" : $"There already exist a Sector named \"{sector.SectorName}\"";
                         }
                         else
-                            ViewBag.ErrorValidation = $"This sector ID {sector.SectionID}could not be found in the database";
+                            ViewBag.ErrorValidation = $"This sector ID {sector.SectionID} could not be found in the database";
                     }
                 }
             }

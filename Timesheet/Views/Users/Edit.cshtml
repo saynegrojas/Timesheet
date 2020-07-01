@@ -59,14 +59,14 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.confirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.confirmPassword, "Confirm Password", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.confirmPassword, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.JobRoleID, "JobRoleID", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.JobRoleID, "Job Description", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("JobRoleID", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.JobRoleID, "", new { @class = "text-danger" })

@@ -15,10 +15,10 @@ namespace Timesheet.Controllers
         private TimesheetEntities db = new TimesheetEntities();
 
         // GET: Locations
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var locations = db.Locations.Include(l => l.Sector);
-            return View(locations.ToList());
+            return View(db.Locations.Where(x => x.LocationName.Contains(searchString) || searchString == null).ToList());
         }
 
         // GET: Locations/Details/5
@@ -55,8 +55,8 @@ namespace Timesheet.Controllers
                 ViewBag.strSlectedSector = location.SectionID;
                 if (ModelState.IsValid)
                 {
-                    if (!String.IsNullOrEmpty(location.LocationName))
-                    {
+                    //if (!String.IsNullOrEmpty(location.LocationName))
+                    //{
                         if (!(String.IsNullOrEmpty(location.LocationName) || db.chkLocationNameExist(location.LocationName)))
                         {
                             db.Locations.Add(location);
@@ -65,10 +65,10 @@ namespace Timesheet.Controllers
                         }
                         else
                             ViewBag.ValLocationName = String.IsNullOrEmpty(location.LocationName) ? "You have not entered a value for Location" : $"There already exist a Location named \"{location.LocationName}\"";
-                    }
-                    else
-                        ViewBag.ValSectorName = "Select a value for Sector Name";
+                    //}
+                    //else
                 }
+                ViewBag.ValSectorName = "Select a value for Sector Name";
                 ViewBag.SectionID = new SelectList(db.Sectors, "SectionID", "SectorName", location.SectionID);
             }
             catch (Exception ex)

@@ -20,10 +20,11 @@ namespace Timesheet.Models
         };
 
         // GET: Doctors
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var doctors = db.Doctors.Include(d => d.Location);
-            return View(doctors.ToList());
+            return View(doctors.Where(x => x.FirstName.Contains(searchString) || searchString == null).ToList());
+
         }
 
         // GET: Doctors/Details/5
@@ -116,6 +117,7 @@ namespace Timesheet.Models
             if(String.IsNullOrEmpty(doctor.Email))
             {
                 ViewBag.ValidateEmail = "Email address field is required";
+                errorFlag = true;
             }
             if(String.IsNullOrEmpty(doctor.FirstName))
             {

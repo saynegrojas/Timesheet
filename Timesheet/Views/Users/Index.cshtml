@@ -1,52 +1,115 @@
 ﻿@model IEnumerable<Timesheet.Models.User>
 
-@{
-    ViewBag.Title = "Index";
+@{ ViewBag.Title = "Index";
     if (Session["email"] == null)
     {
         Response.Redirect("~/Home/login");
-    }
+    } 
 }
-    @Html.Partial("_PartialNavbar");
-        <div>
-            <p class="text-right">
-                <a href="@Url.Action("Logout", "Home")">Log out</a>
-            </p>
-            <h2 class="text-left welcome">
-                Welcome,
-                @Session["Name"]
-            </h2>
-        </div>
-        <p class="text-right">
-            @Html.ActionLink("Add User", "Create")
-        </p>
-        <table class="table table-striped table-hover">
-            <tr>
-                <th>
-                    @Html.DisplayName("Name")
-                </th>
-                <th>
-                    @Html.DisplayName("Job Description")
-                </th>
-                <th></th>
-            </tr>
 
-            @foreach (var item in Model)
-            {
-                var concat = item.FirstName + " " + item.LastName;
-                <tr>
-                    <td>
-                        @Html.ActionLink(concat, "Details", new { id = item.UserID }, new { datatoggle = "tooltip", title = $"Click for details"})
-                        @*@Html.ActionLink(concat, "Details", new { id = item.UserID }, new { datatoggle = "tooltip", title = $"Click for details" })*@
+@Html.Partial("_PartialNavbar")
+<style>
+    a.first-name {
+        color: #333333;
+        font-weight: bold;
+    }
 
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Job_Role.JobDescription)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
-                    </td>
-                </tr>
-            }
-        </table>
+    #reset {
+        background-color: #56baed;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: 13px;
+        -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+        box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+        margin: 5px 20px 40px 20px;
+        -webkit-appearance: button;
+        cursor: pointer;
+    }
+
+        #reset > a {
+            text-decoration: none;
+            color: white;
+        }
+
+        #reset:focus {
+            background-color: #fff;
+            border-bottom: 2px solid #5fbae9;
+        }
+
+        #reset:active {
+            -moz-transform: scale(0.95);
+            -webkit-transform: scale(0.95);
+            -o-transform: scale(0.95);
+            -ms-transform: scale(0.95);
+            transform: scale(0.95);
+        }
+
+        #reset:hover {
+            background-color: #39ace7;
+        }
+</style>
+
+<div>
+    <h2 class="text-left welcome">
+        Welcome,
+        @Session["Name"]
+    </h2>
+</div>
+
+@using (Html.BeginForm("Index", "Users", FormMethod.Get))
+{
+
+<div>
+    <b>Search By:</b>
+    Name
+    <br />
+    @Html.TextBox("searchString")
+    <input type="submit" value="Search" />
+    <button id="reset">@Html.ActionLink("Reset", "Index")</button>
+</div>
+<table class="table table-striped table-hover">
+    <p class="text-right">
+        @Html.ActionLink("Add User", "Create")
+    </p>
+    <tr>
+        <th>
+            @Html.DisplayName("Name")
+        </th>
+        <th>
+            @Html.DisplayName("Job Description")
+        </th>
+        <th></th>
+    </tr>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="8">No record was found</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            var concat = item.FirstName + " " + item.LastName;
+<tr>
+    <td>
+        @Html.ActionLink(concat, "Details", new { id = item.UserID }, new { datatoggle = "tooltip", title = $"Click for details" })
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Job_Role.JobDescription)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
+    </td>
+</tr>}
+                }
+</table>
+}

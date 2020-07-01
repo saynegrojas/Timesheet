@@ -15,9 +15,9 @@ namespace Timesheet.Controllers
         private TimesheetEntities db = new TimesheetEntities();
 
         // GET: Job_Role
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.Job_Role.ToList());
+            return View(db.Job_Role.Where(x => x.JobDescription.Contains(searchString) || searchString == null).ToList());
         }
 
         // GET: Job_Role/Details/5
@@ -48,19 +48,24 @@ namespace Timesheet.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "JobRoleID,JobDescription")] Job_Role job_Role)
         {
+            bool errorFlag = false;
+            if(String.IsNullOrEmpty(job_Role.JobDescription) || db.Job_Role.ToList().Any(s => s.JobDescription == job_Role.JobDescription))
+            {
+                ViewBag.ValidateJobRole = String.IsNullOrEmpty(job_Role.JobDescription) ? "Job role field is required" : $"Job role \"{job_Role.JobDescription}\" already exists";
+                errorFlag = true;
+            }
+            
             if (ModelState.IsValid)
             {
-                db.Job_Role.Add(job_Role);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            } else if (job_Role == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            } else
-            {
+                if(!errorFlag)
+                {
+                    db.Job_Role.Add(job_Role);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");   
+                }
+
+            } 
                 return View(job_Role);
-                
-            }
 
         }
 
@@ -86,11 +91,20 @@ namespace Timesheet.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "JobRoleID,JobDescription")] Job_Role job_Role)
         {
+            bool errorFlag = false;
+            if(String.IsNullOrEmpty(job_Role.JobDescription))
+            {
+                ViewBag.ValidateJobRole = "Job description field is required";
+                errorFlag = true;
+            }
             if (ModelState.IsValid)
             {
+                if(!errorFlag)
+                {
                 db.Entry(job_Role).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                }
             }
             return View(job_Role);
         }
